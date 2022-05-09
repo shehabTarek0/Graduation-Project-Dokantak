@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/models/data.dart';
 import 'package:g_project/modules/product_details/product_details.dart';
 import 'package:g_project/shared/component/component.dart';
@@ -37,7 +38,8 @@ class CartScreen extends StatelessWidget {
                 );
               },
               itemBuilder: (BuildContext context, int index) {
-                return buildCartItem(context);
+                return buildCartItem(context,
+                    AppCubit.get(context).categoryProductsModel!.data![index]);
               },
             ),
           ),
@@ -79,11 +81,21 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCartItem(context) {
+  Widget buildCartItem(context, Dataa data) {
     String getPro = CacheHelper.getData(key: 'pro');
     List<Dataa> dec = Dataa.decode(getPro);
     return GestureDetector(
-      onTap: () => navigateTo(context, ProductDetails()),
+      onTap: () {
+        String encodeDataa = Dataa.encode([
+          Dataa(
+              id: data.id,
+              photo: data.photo,
+              price: data.price,
+              productName: data.productName)
+        ]);
+        CacheHelper.saveData(key: 'proo', value: encodeDataa);
+        navigateTo(context, ProductDetails(Dataa));
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(

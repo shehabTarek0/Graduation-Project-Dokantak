@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
               ..getCategory()
               ..getCategoryProducts()
               ..getFavourites()
-              ..getUsers(),
+              ..getProfile(),
           ),
           BlocProvider(create: (context) => LoginCubit())
         ],

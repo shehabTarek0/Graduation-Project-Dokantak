@@ -1,45 +1,59 @@
 class ProfileModel {
   bool? success;
-  Data? data;
+  List<Data>? data;
   String? message;
 
   ProfileModel({this.success, this.data, this.message});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(Data.fromJson(v));
+      });
+    }
     message = json['message'];
   }
 }
 
 class Data {
-  String? token;
   int? id;
   String? name;
+  String? email;
+  Null emailVerifiedAt;
   String? mobile;
   String? address;
   String? photo;
   String? longitude;
   String? latitude;
+  String? createdAt;
+  String? updatedAt;
 
   Data(
-      {this.token,
-      this.id,
+      {this.id,
       this.name,
+      this.email,
+      this.emailVerifiedAt,
       this.mobile,
       this.address,
       this.photo,
       this.longitude,
-      this.latitude});
+      this.latitude,
+      this.createdAt,
+      this.updatedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
-    token = json['token'];
     id = json['id'];
     name = json['name'];
+    email = json['email'];
+    emailVerifiedAt = json['email_verified_at'];
     mobile = json['mobile'];
     address = json['address'];
     photo = json['photo'];
     longitude = json['longitude'];
     latitude = json['latitude'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
   }
 }

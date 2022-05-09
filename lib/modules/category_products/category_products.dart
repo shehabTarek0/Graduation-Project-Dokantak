@@ -58,7 +58,17 @@ class CategoryProducts extends StatelessWidget {
 
   Widget buildCategoryDetails(BuildContext context, Dataa data) {
     return GestureDetector(
-        onTap: () => navigateTo(context, ProductDetails()),
+        onTap: () {
+          String encodeDataa = Dataa.encode([
+            Dataa(
+                id: data.id,
+                photo: data.photo,
+                price: data.price,
+                productName: data.productName)
+          ]);
+          CacheHelper.saveData(key: 'proo', value: encodeDataa);
+          navigateTo(context, ProductDetails(Dataa));
+        },
         child: Container(
           margin: const EdgeInsets.only(top: 10, bottom: 7),
           decoration: BoxDecoration(
@@ -154,13 +164,13 @@ class CategoryProducts extends StatelessWidget {
                 Center(
                   child: defaultButton(
                       function: () {
-                        List<String> encodeData = Dataa.encode([
+                        String encodeData = Dataa.encode([
                           Dataa(
                               id: data.id,
                               photo: data.photo,
                               price: data.price,
                               productName: data.productName)
-                        ]) as List<String>;
+                        ]);
                         CacheHelper.saveData(key: 'pro', value: encodeData);
                       },
                       text: 'ADD TO CART',

@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:g_project/models/data.dart';
 import 'package:g_project/modules/Cart/cart.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ProductDetails extends StatelessWidget {
-  ProductDetails({Key? key}) : super(key: key);
+  ProductDetails(Type dataa, {Key? key}) : super(key: key);
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -33,15 +35,20 @@ class ProductDetails extends StatelessWidget {
   }
 
   Widget bulidProductDetails(context) {
+    String getProo = CacheHelper.getData(key: 'proo');
+    List<Dataa> decc = Dataa.decode(getProo);
+    for (var i = 0; i < decc.length; i++) {
+      print("${decc[i].id}");
+    }
     var commController = TextEditingController();
     return SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
+            Center(
               child: Image(
-                image: AssetImage('assets/images/AlluringRug.png'),
+                image: NetworkImage('${decc[0].photo}'),
                 fit: BoxFit.cover,
                 width: 300,
                 height: 300,
@@ -55,11 +62,11 @@ class ProductDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Alluring Rug Alluring Rug',
+                  Text(
+                    '${decc[0].productName}',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.w800,
                         height: 1.5,
@@ -71,23 +78,23 @@ class ProductDetails extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
-                        children: const [
-                          Text('350',
-                              style: TextStyle(
+                        children: [
+                          Text('${decc[0].price}',
+                              style: const TextStyle(
                                   fontSize: 23,
                                   fontWeight: FontWeight.w600,
                                   height: 1.5,
                                   letterSpacing: 0.6)),
-                          Text('EGP',
+                          const Text('EGP',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   height: 1.5,
                                   letterSpacing: 0.6)),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Text(
+                          const Text(
                             '400',
                             maxLines: 1,
                             style: TextStyle(
@@ -98,14 +105,14 @@ class ProductDetails extends StatelessWidget {
                               height: 1.3,
                             ),
                           ),
-                          Text('EGP',
+                          const Text('EGP',
                               style: TextStyle(
                                   decoration: TextDecoration.lineThrough,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   height: 1.5,
                                   letterSpacing: 0.6)),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                         ],
@@ -116,8 +123,7 @@ class ProductDetails extends StatelessWidget {
                             padding: const EdgeInsets.all(10),
                             width: 64,
                             decoration: const BoxDecoration(
-                              color:
-                                  Color(0xFFF5F6F9),
+                              color: Color(0xFFF5F6F9),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 bottomLeft: Radius.circular(20),
@@ -207,11 +213,11 @@ class ProductDetails extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    'Alluring Rug Alluring Rug Alluring Rug Alluring Rug Alluring Rug Alluring Rug Alluring Rug Alluring Rug Alluring Rug Alluring Rug ',
+                  Text(
+                    '${decc[0].description}',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         height: 1.5,
@@ -305,14 +311,16 @@ class ProductDetails extends StatelessWidget {
                       return userReviews();
                     },
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   const Text(
-                'Add your review',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+                    'Add your review',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   Form(
                       key: formKey,
                       child: Column(
@@ -330,16 +338,19 @@ class ProductDetails extends StatelessWidget {
                               return null;
                             },
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           defaultButton(
-                                    function:(){},
-                                    text: 'Add Comment',
-                                    width: 180,
-                                    style: const TextStyle(
-                                        fontSize: 18, color: Colors.white),
-                                    background: mainColor),
-                          const SizedBox(height: 15,),
-
+                              function: () {},
+                              text: 'Add Comment',
+                              width: 180,
+                              style: const TextStyle(
+                                  fontSize: 18, color: Colors.white),
+                              background: mainColor),
+                          const SizedBox(
+                            height: 15,
+                          ),
                         ],
                       )),
                 ],

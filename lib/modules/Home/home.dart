@@ -7,6 +7,7 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/category_model.dart';
+import 'package:g_project/models/data.dart';
 import 'package:g_project/modules/Cart/cart.dart';
 import 'package:g_project/modules/categories/categories.dart';
 import 'package:g_project/modules/category_products/category_products.dart';
@@ -145,8 +146,8 @@ class HomeScreen extends StatelessWidget {
                       'assets/images/accessories-icon-png-12.jpg',
                       'assets/images/accessories-icon-png-12.jpg',
                     ];
-                    return categoriesBulider(
-                        context, categoryClassModel.data![index],images[index]);
+                    return categoriesBulider(context,
+                        categoryClassModel.data![index], images[index]);
                   },
                 ),
               ),
@@ -235,7 +236,7 @@ class HomeScreen extends StatelessWidget {
       );
 
   disBuilder(context) => GestureDetector(
-        onTap: () => navigateTo(context, ProductDetails()),
+        onTap: () => navigateTo(context, ProductDetails(Dataa)),
         child: SizedBox(
           width: 130,
           child: Column(
@@ -303,7 +304,7 @@ class HomeScreen extends StatelessWidget {
       );
 
   gridProductsBuilder(context) => GestureDetector(
-        onTap: () => navigateTo(context, ProductDetails()),
+        onTap: () => navigateTo(context, ProductDetails(Dataa)),
         child: Container(
           margin: const EdgeInsets.only(top: 10, bottom: 7),
           decoration: BoxDecoration(

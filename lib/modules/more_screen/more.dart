@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/models/user_model.dart';
+import 'package:g_project/models/profile_model.dart';
 import 'package:g_project/modules/changepass/changepass.dart';
 import 'package:g_project/modules/favourite/favourite.dart';
 import 'package:g_project/modules/notification_screen/notification.dart';
@@ -20,7 +20,6 @@ class MoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var model = LoginCubit.get(context).userModel;
     return BlocConsumer<AppCubit, AppStates>(
         builder: (context, state) {
           return Scaffold(
@@ -42,7 +41,7 @@ class MoreScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      vProfile(context),
+                      vProfile(context, AppCubit.get(context).proModel),
                       GestureDetector(
                         onTap: () =>
                             navigateTo(context, const FavouriteScreen()),
@@ -206,13 +205,15 @@ class MoreScreen extends StatelessWidget {
 
   Widget vProfile(
     context,
+    ProfileModel? proModel,
   ) =>
       GestureDetector(
           onTap: () => navigateTo(context, const ProfileScreen()),
-          child: v(context));
+          child: v(context, proModel!.data![0]));
 
   Widget v(
     context,
+    Data? data,
   ) =>
       Container(
         margin: const EdgeInsets.only(top: 10, bottom: 10),
@@ -236,9 +237,9 @@ class MoreScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '{data.name}',
-                    style: TextStyle(
+                  Text(
+                    '${data!.name}',
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1,
                         fontSize: 27),

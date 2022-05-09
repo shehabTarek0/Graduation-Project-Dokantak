@@ -6,13 +6,11 @@ import 'package:g_project/models/Products_model.dart';
 import 'package:g_project/models/category_model.dart';
 import 'package:g_project/models/change_favourites_model.dart';
 import 'package:g_project/models/profile_model.dart';
-import 'package:g_project/models/user_model.dart';
 import 'package:g_project/modules/Cart/cart.dart';
 import 'package:g_project/modules/Home/home.dart';
 import 'package:g_project/modules/categories/categories.dart';
 import 'package:g_project/modules/more_screen/more.dart';
 import 'package:g_project/shared/component/constants.dart';
-import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -94,33 +92,17 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  ProfileModel? profileModell;
+  ProfileModel? proModel;
 
-  void getUser({required String email, required String password}) async {
-    emit(AppLoadingUserState());
-    await DioHelper.postData(
-        url: 'https://care.ssd-co.com/api/client/login',
-        token: 'Bearer $token',
-        data: {'email': email, 'password': password}).then((value) {
-      profileModell = ProfileModel.fromJson(value.data);
-      emit(AppSuccesUserState());
-    }).catchError((e) {
-      emit(AppErrorUserState());
-    });
-  }
-
-  UserProModel? user;
-
-  void getUsers() {
+  void getProfile() {
     DioHelper.getData(
-            url: 'https://care.ssd-co.com/api/admin/client',
+            url: 'https://care.ssd-co.com/api/client/profile/info',
             token: 'Bearer $token')
         .then((value) {
-      id = CacheHelper.getData(key: 'id');
-      user = UserProModel.fromJson(value.data);
-      emit(AppSuccesUserState());
+      proModel = ProfileModel.fromJson(value.data);
+      emit(AppSuccesGetProfileState());
     }).catchError((e) {
-      emit(AppErrorUserState());
+      emit(AppErrorGetProfileState());
       print(e);
     });
   }

@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/Favourite_model.dart';
+import 'package:g_project/models/data.dart';
 import 'package:g_project/modules/product_details/product_details.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -44,12 +46,23 @@ class FavouriteScreen extends StatelessWidget {
           );
         },
         itemBuilder: (BuildContext context, int index) {
-          return buildFavItem(context, favouritesModel.data![index]);
+          return buildFavItem(context, favouritesModel.data![index],
+              AppCubit.get(context).categoryProductsModel!.data![0]);
         },
       );
 
-  Widget buildFavItem(context, Data fmodel) => GestureDetector(
-        onTap: () => navigateTo(context, ProductDetails()),
+  Widget buildFavItem(context, Data fmodel, Dataa data) => GestureDetector(
+        onTap: () {
+          String encodeDataa = Dataa.encode([
+            Dataa(
+                id: data.id,
+                photo: data.photo,
+                price: data.price,
+                productName: data.productName)
+          ]);
+          CacheHelper.saveData(key: 'proo', value: encodeDataa);
+          navigateTo(context, ProductDetails(Dataa));
+        },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(

@@ -79,9 +79,9 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   FavouritesModel? favModel;
-  void getFavourites() {
+  void getFavourites() async {
     emit(AppLoadingGetFavouritesState());
-    DioHelper.getData(
+    await DioHelper.getData(
             url: 'https://care.ssd-co.com/api/client/wishlist/products',
             token: 'Bearer $token')
         .then((value) {
@@ -94,8 +94,8 @@ class AppCubit extends Cubit<AppStates> {
 
   ProfileModel? proModel;
 
-  void getProfile() {
-    DioHelper.getData(
+  void getProfile() async {
+    await DioHelper.getData(
             url: 'https://care.ssd-co.com/api/client/profile/info',
             token: 'Bearer $token')
         .then((value) {
@@ -103,7 +103,6 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppSuccesGetProfileState());
     }).catchError((e) {
       emit(AppErrorGetProfileState());
-      print(e);
     });
   }
 }

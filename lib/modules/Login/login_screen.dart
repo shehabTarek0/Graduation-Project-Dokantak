@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/app_layout.dart';
+import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/modules/Login/cubit/cubit.dart';
 import 'package:g_project/modules/Login/cubit/states.dart';
 import 'package:g_project/modules/register/register_screen.dart';
@@ -92,6 +93,7 @@ class LoginScreen extends StatelessWidget {
                                             email: emailController.text,
                                             password: passController.text);
                                         // navigateAndFinish(context, const AppLayout());
+                                        AppCubit.get(context).getProfile();
                                       }
                                     },
                                     text: 'login',
@@ -133,6 +135,9 @@ class LoginScreen extends StatelessWidget {
                 CacheHelper.saveData(
                         key: 'token', value: state.userModel.data!.token)
                     .then((value) {
+                  token = state.userModel.data!.token;
+                  AppCubit.get(context).getProfile();
+                  AppCubit.get(context).getFavourites();
                   navigateAndFinish(context, const AppLayout());
                 });
               }

@@ -218,7 +218,7 @@ class HomeScreen extends StatelessWidget {
       );
 
   categoriesBulider(context, Data data, String imag) => GestureDetector(
-        onTap: () => navigateTo(context, const CategoryProducts()),
+        onTap: () => navigateTo(context, CategoryProducts()),
         child: Column(
           children: [
             Image(

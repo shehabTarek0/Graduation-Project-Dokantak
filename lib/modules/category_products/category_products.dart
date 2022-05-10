@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
@@ -10,7 +12,8 @@ import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class CategoryProducts extends StatelessWidget {
-  const CategoryProducts({Key? key}) : super(key: key);
+  CategoryProducts({Key? key}) : super(key: key);
+  List<String> str = [];
 
   @override
   Widget build(BuildContext context) {
@@ -164,6 +167,7 @@ class CategoryProducts extends StatelessWidget {
                 Center(
                   child: defaultButton(
                       function: () {
+                        // ignore: deprecated_member_use
                         String encodeData = Dataa.encode([
                           Dataa(
                               id: data.id,
@@ -171,6 +175,9 @@ class CategoryProducts extends StatelessWidget {
                               price: data.price,
                               productName: data.productName)
                         ]);
+                        str.add(encodeData);
+                        CacheHelper.saveData(key: 'products', value: str);
+                        // print(str.length);
                         CacheHelper.saveData(key: 'pro', value: encodeData);
                       },
                       text: 'ADD TO CART',

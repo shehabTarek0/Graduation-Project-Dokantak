@@ -11,6 +11,7 @@ import 'package:g_project/modules/notification_screen/notification.dart';
 import 'package:g_project/modules/profile/profile_screen.dart';
 import 'package:g_project/modules/start/start.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -189,6 +190,9 @@ class MoreScreen extends StatelessWidget {
                               CacheHelper.removeData(key: 'token')
                                   .then((value) {
                                 if (value) {
+                                  AppCubit.get(context).currentIndex = 0;
+                                  emailController.text = '';
+                                  passController.text = '';
                                   navigateAndFinish(
                                       context, const StartScreen());
                                 }

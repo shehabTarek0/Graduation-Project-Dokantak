@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 int? id;
 String? token;
+int? currentIndex;
 var passController = TextEditingController();
 var emailController = TextEditingController();
 const kPrimaryColor = Color(0xFFFF7643);

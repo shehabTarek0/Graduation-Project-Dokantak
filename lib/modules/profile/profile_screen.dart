@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
+import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/profile_model.dart';
-import 'package:g_project/modules/Login/cubit/cubit.dart';
-import 'package:g_project/modules/Login/cubit/states.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginStates>(
+    return BlocConsumer<AppCubit, AppStates>(
         builder: (context, state) {
           return Scaffold(
               appBar: AppBar(
@@ -29,45 +28,48 @@ class ProfileScreen extends StatelessWidget {
         listener: (context, state) {});
   }
 
-  Widget profile(Data data) => SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  /* CircleAvatar(
-                    radius: 0,
-                    child: Image.network(
-                      'url',
-                      fit: BoxFit.cover,
-                    ),
-                  ), */
-                  const SizedBox(
-                    width: 15,
+  Widget profile(Data data) {
+    print('https://care.ssd-co.com/storage/app/public/${data.photo}');
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 100,
+                  child: Image.network(
+                    'https://care.ssd-co.com/storage/app/public/${data.photo}',
+                    fit: BoxFit.cover,
                   ),
-                  Text(
-                    '${data.name}',
-                    style: const TextStyle(
-                      fontSize: 30,
-                    ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  '${data.name}',
+                  style: const TextStyle(
+                    fontSize: 30,
                   ),
-                ],
-              ),
-              Text(
-                '${data.mobile}',
-                style: const TextStyle(
-                  fontSize: 30,
                 ),
+              ],
+            ),
+            Text(
+              '${data.mobile}',
+              style: const TextStyle(
+                fontSize: 30,
               ),
-              Text(
-                '${data.address}',
-                style: const TextStyle(
-                  fontSize: 30,
-                ),
+            ),
+            Text(
+              '${data.address}',
+              style: const TextStyle(
+                fontSize: 30,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

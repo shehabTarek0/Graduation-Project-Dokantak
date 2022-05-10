@@ -67,7 +67,7 @@ class CategoryScreen extends StatelessWidget {
     String imag,
   ) =>
       GestureDetector(
-        onTap: () => navigateTo(context, const CategoryProducts()),
+        onTap: () => navigateTo(context, CategoryProducts()),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,

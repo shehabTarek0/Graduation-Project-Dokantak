@@ -41,7 +41,7 @@ class Dataa {
       );
 
   static List<Dataa> decode(String pro) => (json.decode(pro) as List<dynamic>)
-      .map<Dataa>((proo) => Dataa.fromJson(proo))
+      .map<Dataa>((pro) => Dataa.fromJson(pro))
       .toList();
 
   static Map<String, dynamic> toMap(Dataa pro) => {

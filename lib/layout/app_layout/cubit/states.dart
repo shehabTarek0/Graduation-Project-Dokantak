@@ -39,6 +39,8 @@ class AppSuccesGetCategoryState extends AppStates {}
 
 class AppErrorGetCategoryState extends AppStates {}
 
+class AppLoadingGetCategoryProductsState extends AppStates {}
+
 class AppSuccesGetCategoryProductsState extends AppStates {}
 
 class AppErrorGetCategoryProductsState extends AppStates {}

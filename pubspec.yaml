@@ -43,6 +43,8 @@ dependencies:
   dio: ^4.0.4
   fluttertoast: ^8.0.9
   shared_preferences_web: ^2.0.3
+  image_picker: ^0.8.5+2
+  conditional_builder_null_safety: ^0.0.6
 
 dev_dependencies:
   flutter_test:

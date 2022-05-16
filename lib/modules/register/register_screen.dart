@@ -111,6 +111,20 @@ class RegisterScreen extends StatelessWidget {
                       const SizedBox(
                         height: 35,
                       ),
+                      defaultButton(
+                          function: () {
+                            RegisterCubit.get(context).pickImage();
+                          },
+                          text: 'Choose photo',
+                          height: 60,
+                          width: 170,
+                          isUpperCase: false,
+                          background: Colors.grey[400],
+                          style: const TextStyle(
+                              color: Colors.black87, fontSize: 20)),
+                      const SizedBox(
+                        height: 35,
+                      ),
                       state is! RegisterLoadingState
                           ? defaultButton(
                               function: () {
@@ -151,16 +165,16 @@ class RegisterScreen extends StatelessWidget {
                 textColor: Colors.white,
                 fontSize: 16.0);
             navigateAndFinish(context, LoginScreen());
-          } else{
+          } else {
             Fluttertoast.showToast(
-              msg: state.registeruserModel.data!.name![0],
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 3,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
-          }/* else {
+                msg: state.registeruserModel.data!.name![0],
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } /* else {
                 showToast(
                     text: state.registerModel.message!, state: ToastStates.e);
                 print(state.registerModel.message);
@@ -175,7 +189,7 @@ class RegisterScreen extends StatelessWidget {
               backgroundColor: Colors.red,
               textColor: Colors.white,
               fontSize: 16.0);
-        } 
+        }
       }),
     );
   }

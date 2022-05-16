@@ -35,11 +35,8 @@ class ProductDetails extends StatelessWidget {
   }
 
   Widget bulidProductDetails(context) {
-    String getProo = CacheHelper.getData(key: 'proo');
+    String getProo = CacheHelper.getData(key: 'prodectsDeteails');
     List<Dataa> decc = Dataa.decode(getProo);
-    for (var i = 0; i < decc.length; i++) {
-      print("${decc[i].id}");
-    }
     var commController = TextEditingController();
     return SingleChildScrollView(
         physics: const BouncingScrollPhysics(),

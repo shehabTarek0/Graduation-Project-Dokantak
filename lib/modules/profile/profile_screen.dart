@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators, unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
@@ -38,11 +40,14 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  radius: 100,
-                  child: Image.network(
-                    'https://care.ssd-co.com/storage/app/public/${data.photo}',
-                    fit: BoxFit.cover,
-                  ),
+                  backgroundColor: Colors.grey[500],
+                  radius: 50,
+                  backgroundImage: NetworkImage(
+                      'https://care.ssd-co.com/storage/app/public/${data.photo}' ==
+                              null
+                          ? 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
+                          : 'https://care.ssd-co.com/storage/app/public/${data.photo}',
+                      scale: 90),
                 ),
                 const SizedBox(
                   width: 15,

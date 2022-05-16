@@ -84,11 +84,6 @@ class CartScreen extends StatelessWidget {
   Widget buildCartItem(context, Dataa data) {
     String getPro = CacheHelper.getData(key: 'pro');
     List<Dataa> dec = Dataa.decode(getPro);
-    List<String> str = CacheHelper.getData(key: 'products');
-    List<Dataa> o = Dataa.decode(CacheHelper.getData(key: 'pro'));
-    for (var item in o) {
-      print(item.productName);
-    }
     return GestureDetector(
       onTap: () {
         String encodeDataa = Dataa.encode([
@@ -98,7 +93,7 @@ class CartScreen extends StatelessWidget {
               price: data.price,
               productName: data.productName)
         ]);
-        CacheHelper.saveData(key: 'proo', value: encodeDataa);
+        CacheHelper.saveData(key: 'productCard', value: encodeDataa);
         navigateTo(context, ProductDetails(Dataa));
       },
       child: Container(

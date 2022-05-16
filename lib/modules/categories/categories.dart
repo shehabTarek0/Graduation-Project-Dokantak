@@ -67,7 +67,10 @@ class CategoryScreen extends StatelessWidget {
     String imag,
   ) =>
       GestureDetector(
-        onTap: () => navigateTo(context, CategoryProducts()),
+        onTap: () {
+          AppCubit.get(context).getCategoryProducts(data.id!);
+          navigateTo(context, CategoryProducts());
+        },
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,

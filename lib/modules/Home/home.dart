@@ -22,12 +22,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
-        builder: (context, state) => Scaffold(
+        builder: (context, state) {
+          if (AppCubit.get(context).categoryModel != null) {
+            return Scaffold(
               appBar: AppBar(
                 elevation: 2,
                 actions: [
                   IconButton(
-                      onPressed: () => navigateTo(context, const CartScreen()),
+                      onPressed: () => navigateTo(context, CartScreen()),
                       icon: const Icon(
                         FontAwesome5.search,
                         size: 22,
@@ -45,7 +47,32 @@ class HomeScreen extends StatelessWidget {
               ),
               body:
                   prouductBlider(context, AppCubit.get(context).categoryModel!),
-            ),
+            );
+          } else {
+            return Scaffold(
+                appBar: AppBar(
+                  elevation: 2,
+                  actions: [
+                    IconButton(
+                        onPressed: () => navigateTo(context, CartScreen()),
+                        icon: const Icon(
+                          FontAwesome5.search,
+                          size: 22,
+                        ))
+                  ],
+                  title: const Text(
+                    'DOKANTAK',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 2.5,
+                    ),
+                  ),
+                ),
+                body: const Center(child: CircularProgressIndicator()));
+          }
+        },
         listener: (context, state) {});
   }
 
@@ -58,7 +85,7 @@ class HomeScreen extends StatelessWidget {
             CarouselSlider(
                 items: [
                   GestureDetector(
-                    onTap: () => {navigateTo(context, const CartScreen())},
+                    onTap: () => {navigateTo(context, CartScreen())},
                     child: const Image(
                       image: AssetImage('assets/images/s1.jpg'),
                       width: double.infinity,
@@ -66,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => navigateTo(context, const CartScreen()),
+                    onTap: () => navigateTo(context, CartScreen()),
                     child: const Image(
                       image: AssetImage('assets/images/s2.jpg'),
                       width: double.infinity,
@@ -74,7 +101,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => navigateTo(context, const CartScreen()),
+                    onTap: () => navigateTo(context, CartScreen()),
                     child: const Image(
                       image: AssetImage('assets/images/s3.jpg'),
                       width: double.infinity,
@@ -82,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => navigateTo(context, const CartScreen()),
+                    onTap: () => navigateTo(context, CartScreen()),
                     child: const Image(
                       image: AssetImage('assets/images/s4.jpg'),
                       width: double.infinity,

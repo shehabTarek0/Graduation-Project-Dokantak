@@ -31,7 +31,6 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget profile(Data data) {
-    print('https://care.ssd-co.com/storage/app/public/${data.photo}');
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),

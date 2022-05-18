@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 int? id;
+String? getPro, getProduct0, getProduct1, getProduct2, getProduct3;
+
 String? token;
 int? currentIndex;
 var passController = TextEditingController();

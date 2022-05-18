@@ -53,6 +53,8 @@ class AppSuccesGetFavouritesState extends AppStates {}
 
 class AppLoadingGetFavouritesState extends AppStates {}
 
+class AppLoadingCartsState extends AppStates {}
+
 class AppErrorGetFavouritesState extends AppStates {}
 
 class AppSuccesGetProfileState extends AppStates {}

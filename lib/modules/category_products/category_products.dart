@@ -8,6 +8,7 @@ import 'package:g_project/models/Products_model.dart';
 import 'package:g_project/models/data.dart';
 import 'package:g_project/modules/product_details/product_details.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -18,21 +19,38 @@ class CategoryProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(builder: (context, state) {
-      return Scaffold(
-        appBar: AppBar(
-          elevation: 2,
-          centerTitle: true,
-          title: const Text(
-            'Category Products',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              letterSpacing: 2.5,
+      if (AppCubit.get(context).categoryProductsModel != null) {
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 2,
+            centerTitle: true,
+            title: const Text(
+              'Category Products',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                letterSpacing: 2.5,
+              ),
             ),
           ),
-        ),
-        body: buildCategoryP(
-            context, AppCubit.get(context).categoryProductsModel!),
-      );
+          body: buildCategoryP(
+              context, AppCubit.get(context).categoryProductsModel!),
+        );
+      } else {
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 2,
+            centerTitle: true,
+            title: const Text(
+              'Category Products',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                letterSpacing: 2.5,
+              ),
+            ),
+          ),
+          body: const Center(child: CircularProgressIndicator()),
+        );
+      }
     }, listener: (context, state) {
       if (state is AppSuccesChangeFavouritesState) {
         flutterToast(text: 'Succes op', state: ToastStates.S);
@@ -51,16 +69,16 @@ class CategoryProducts extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                buildCategoryDetails0(context, model.data![1]),
+                buildCategoryDetails1(context, model.data![1]),
               ],
             ),
             Row(
               children: [
-                buildCategoryDetails0(context, model.data![2]),
+                buildCategoryDetails2(context, model.data![2]),
                 const SizedBox(
                   width: 10,
                 ),
-                buildCategoryDetails1(context, model.data![3]),
+                buildCategoryDetails3(context, model.data![3]),
               ],
             ),
             GridView.count(
@@ -91,7 +109,7 @@ class CategoryProducts extends StatelessWidget {
                 price: data.price,
                 productName: data.productName)
           ]);
-          CacheHelper.saveData(key: 'prodectsDeteails', value: encodeDataa);
+          CacheHelper.saveData(key: 'prodectsDetails', value: encodeDataa);
           navigateTo(context, ProductDetails(Dataa));
         },
         child: Container(
@@ -189,7 +207,6 @@ class CategoryProducts extends StatelessWidget {
                 Center(
                   child: defaultButton(
                       function: () {
-                        // ignore: deprecated_member_use
                         String encodeData = Dataa.encode([
                           Dataa(
                               id: data.id,
@@ -197,10 +214,9 @@ class CategoryProducts extends StatelessWidget {
                               price: data.price,
                               productName: data.productName)
                         ]);
-                        str.add(encodeData);
-                        CacheHelper.saveData(key: 'products', value: str);
-                        // print(str.length);
-                        CacheHelper.saveData(key: 'pro', value: encodeData);
+                        CacheHelper.saveData(
+                            key: 'products', value: encodeData);
+                        getPro = CacheHelper.getData(key: 'products');
                       },
                       text: 'ADD TO CART',
                       background: HexColor('#7A92A3'),
@@ -324,18 +340,16 @@ class CategoryProducts extends StatelessWidget {
                 Center(
                   child: defaultButton(
                       function: () {
-                        // ignore: deprecated_member_use
-                        String encodeData = Dataa.encode([
+                        String encodeData0 = Dataa.encode([
                           Dataa(
                               id: data.id,
                               photo: data.photo,
                               price: data.price,
                               productName: data.productName)
                         ]);
-                        str.add(encodeData);
-                        CacheHelper.saveData(key: 'products', value: str);
-                        // print(str.length);
-                        CacheHelper.saveData(key: 'pro', value: encodeData);
+                        CacheHelper.saveData(
+                            key: 'product0', value: encodeData0);
+                        getProduct0 = CacheHelper.getData(key: 'product0');
                       },
                       text: 'ADD TO CART',
                       background: HexColor('#7A92A3'),
@@ -460,17 +474,16 @@ class CategoryProducts extends StatelessWidget {
                   child: defaultButton(
                       function: () {
                         // ignore: deprecated_member_use
-                        String encodeData = Dataa.encode([
+                        String encodeData1 = Dataa.encode([
                           Dataa(
                               id: data.id,
                               photo: data.photo,
                               price: data.price,
                               productName: data.productName)
                         ]);
-                        str.add(encodeData);
-                        CacheHelper.saveData(key: 'products', value: str);
-                        // print(str.length);
-                        CacheHelper.saveData(key: 'pro', value: encodeData);
+                        CacheHelper.saveData(
+                            key: 'product1', value: encodeData1);
+                        getProduct1 = CacheHelper.getData(key: 'product1');
                       },
                       text: 'ADD TO CART',
                       background: HexColor('#7A92A3'),
@@ -595,17 +608,16 @@ class CategoryProducts extends StatelessWidget {
                   child: defaultButton(
                       function: () {
                         // ignore: deprecated_member_use
-                        String encodeData = Dataa.encode([
+                        String encodeData2 = Dataa.encode([
                           Dataa(
                               id: data.id,
                               photo: data.photo,
                               price: data.price,
                               productName: data.productName)
                         ]);
-                        str.add(encodeData);
-                        CacheHelper.saveData(key: 'products', value: str);
-                        // print(str.length);
-                        CacheHelper.saveData(key: 'pro', value: encodeData);
+                        CacheHelper.saveData(
+                            key: 'product2', value: encodeData2);
+                        getProduct2 = CacheHelper.getData(key: 'product2');
                       },
                       text: 'ADD TO CART',
                       background: HexColor('#7A92A3'),
@@ -730,17 +742,16 @@ class CategoryProducts extends StatelessWidget {
                   child: defaultButton(
                       function: () {
                         // ignore: deprecated_member_use
-                        String encodeData = Dataa.encode([
+                        String encodeData3 = Dataa.encode([
                           Dataa(
                               id: data.id,
                               photo: data.photo,
                               price: data.price,
                               productName: data.productName)
                         ]);
-                        str.add(encodeData);
-                        CacheHelper.saveData(key: 'products', value: str);
-                        // print(str.length);
-                        CacheHelper.saveData(key: 'pro', value: encodeData);
+                        CacheHelper.saveData(
+                            key: 'product3', value: encodeData3);
+                        getProduct3 = CacheHelper.getData(key: 'product3');
                       },
                       text: 'ADD TO CART',
                       background: HexColor('#7A92A3'),
@@ -754,20 +765,3 @@ class CategoryProducts extends StatelessWidget {
         ));
   }
 }
-
-
-/**
-  GridView.count(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          crossAxisSpacing: 10,
-          // mainAxisSpacing: 1,
-          childAspectRatio: 1 / 2.19,
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: List.generate(
-            model.data!.length,
-            (index) => buildCategoryDetails(context, model.data![index]),
-          ),
-        )
- */

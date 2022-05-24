@@ -16,14 +16,13 @@ class Dataa {
       this.price,
       this.photo});
 
-  Dataa.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    productName = json['Product_name'];
-    description = json['description'];
-    categoryId = json['category_id'];
-    price = json['price'];
-    photo = json['photo'];
-  }
+  factory Dataa.fromJson(Map<String, dynamic> json) => Dataa(
+      id: json['id'],
+      productName: json['Product_name'],
+      description: json['description'],
+      categoryId: json['category_id'],
+      price: json['price'],
+      photo: json['photo']);
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

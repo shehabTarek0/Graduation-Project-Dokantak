@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/app_layout.dart';
@@ -16,6 +18,7 @@ import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
 import 'package:g_project/shared/styles/thems.dart';
 
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
   await CacheHelper.init();
@@ -57,7 +60,8 @@ class MyApp extends StatelessWidget {
             create: (context) => AppCubit()
               ..getCategory()
               ..getFavourites()
-              ..getProfile(),
+              ..getProfile()
+              ..getSearchProducts(),
           ),
           BlocProvider(create: (context) => LoginCubit())
         ],
@@ -69,5 +73,14 @@ class MyApp extends StatelessWidget {
                   home: SplashScreen(start: start),
                 ),
             listener: (context, state) {}));
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

@@ -6,6 +6,7 @@ import 'package:g_project/models/Favourite_model.dart';
 import 'package:g_project/models/Products_model.dart';
 import 'package:g_project/models/category_model.dart';
 import 'package:g_project/models/change_favourites_model.dart';
+import 'package:g_project/models/checkout_model.dart';
 import 'package:g_project/models/data.dart';
 import 'package:g_project/models/profile_model.dart';
 import 'package:g_project/modules/Cart/cart.dart';
@@ -62,6 +63,19 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  CategoryProductsModel? productsModel;
+
+  void getSearchProducts() {
+    DioHelper.getData(
+            url: 'https://care.ssd-co.com/api/client/category/product/12')
+        .then((value) {
+      productsModel = CategoryProductsModel.fromJson(value.data);
+      emit(AppSuccesSearchProductsState());
+    }).catchError((e) {
+      emit(AppErrorSearchProductsState());
+    });
+  }
+
   bool isFavourite = false;
   void changeF(int id) {
     isFavourite = !isFavourite;
@@ -112,11 +126,38 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  CheckOutModel? checkOut;
+
+  void postCheckOut() {
+    DioHelper.postData(
+        url: 'https://care.ssd-co.com/api/cart/add?',
+        token: 'Bearer $token',
+        query: {
+          'client_id': proModel!.data![0].id,
+          'client_name': proModel!.data![0].name,
+          'client_phone': proModel!.data![0].mobile,
+          'new_address': proModel!.data![0].address,
+          'payment_method': 'cash',
+          'status': '0',
+          'check': '1',
+          'Payment_Date': '132135',
+          'product_ids[0]': idPro,
+          'product_ids[1]': idProduct0,
+        }).then((value) {
+      emit(AppSuccesCheckOutState());
+    }).catchError((e) {
+      emit(AppErrorCheckOutState());
+    });
+  }
+
   Widget buildCartItem(context, Dataa data) {
     if (getPro == null) {
       return const SizedBox();
     } else {
       List<Dataa> dec = Dataa.decode(getPro!);
+      pricePro = double.tryParse(dec[0].price!);
+      idPro = dec[0].id!;
+      b = 1;
       return GestureDetector(
         onTap: () {
           String encodeDataa = Dataa.encode([
@@ -206,6 +247,9 @@ class AppCubit extends Cubit<AppStates> {
                                 onPressed: () {
                                   CacheHelper.removeData(key: 'products');
                                   getPro = null;
+                                  pricePro = 0.0;
+                                  idPro = null;
+                                  b = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)
                                       .buildCartItem(context, data);
@@ -236,6 +280,9 @@ class AppCubit extends Cubit<AppStates> {
       return const SizedBox();
     } else {
       List<Dataa> dec0 = Dataa.decode(getProduct0!);
+      priceProduct0 = double.tryParse(dec0[0].price!);
+      idProduct0 = dec0[0].id!;
+      b0 = 1;
       return GestureDetector(
         onTap: () {
           String encodeDataa = Dataa.encode([
@@ -325,6 +372,9 @@ class AppCubit extends Cubit<AppStates> {
                                 onPressed: () {
                                   CacheHelper.removeData(key: 'product0');
                                   getProduct0 = null;
+                                  priceProduct0 = 0.0;
+                                  idProduct0 = null;
+                                  b0 = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)
                                       .buildCartItem0(context, data);
@@ -355,6 +405,9 @@ class AppCubit extends Cubit<AppStates> {
       return const SizedBox();
     } else {
       List<Dataa> dec1 = Dataa.decode(getProduct1!);
+      idProduct1 = dec1[0].id!;
+      priceProduct1 = double.tryParse(dec1[0].price!);
+      b1 = 1;
       return GestureDetector(
         onTap: () {
           String encodeDataa = Dataa.encode([
@@ -444,6 +497,9 @@ class AppCubit extends Cubit<AppStates> {
                                 onPressed: () {
                                   CacheHelper.removeData(key: 'product1');
                                   getProduct1 = null;
+                                  priceProduct1 = 0.0;
+                                  idProduct1 = null;
+                                  b1 = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)
                                       .buildCartItem1(context, data);
@@ -474,6 +530,9 @@ class AppCubit extends Cubit<AppStates> {
       return const SizedBox();
     } else {
       List<Dataa> dec2 = Dataa.decode(getProduct2!);
+      idProduct2 = dec2[0].id!;
+      priceProduct2 = double.tryParse(dec2[0].price!);
+      b2 = 1;
       return GestureDetector(
         onTap: () {
           String encodeDataa = Dataa.encode([
@@ -563,6 +622,9 @@ class AppCubit extends Cubit<AppStates> {
                                 onPressed: () {
                                   CacheHelper.removeData(key: 'product2');
                                   getProduct2 = null;
+                                  priceProduct2 = 0.0;
+                                  idProduct2 = null;
+                                  b2 = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)
                                       .buildCartItem2(context, data);
@@ -593,6 +655,9 @@ class AppCubit extends Cubit<AppStates> {
       return const SizedBox();
     } else {
       List<Dataa> dec3 = Dataa.decode(getProduct3!);
+      priceProduct3 = double.tryParse(dec3[0].price!);
+      idProduct3 = dec3[0].id!;
+      b3 = 1;
       return GestureDetector(
         onTap: () {
           String encodeDataa = Dataa.encode([
@@ -682,6 +747,9 @@ class AppCubit extends Cubit<AppStates> {
                                 onPressed: () {
                                   CacheHelper.removeData(key: 'product3');
                                   getProduct3 = null;
+                                  priceProduct3 = 0.0;
+                                  idProduct3 = null;
+                                  b3 = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)
                                       .buildCartItem3(context, data);

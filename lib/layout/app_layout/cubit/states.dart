@@ -61,4 +61,12 @@ class AppSuccesGetProfileState extends AppStates {}
 
 class AppErrorGetProfileState extends AppStates {}
 
+class AppSuccesCheckOutState extends AppStates {}
+
+class AppErrorCheckOutState extends AppStates {}
+
+class AppSuccesSearchProductsState extends AppStates {}
+
+class AppErrorSearchProductsState extends AppStates {}
+
 class App extends AppStates {}

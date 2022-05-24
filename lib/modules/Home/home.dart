@@ -13,6 +13,7 @@ import 'package:g_project/modules/categories/categories.dart';
 import 'package:g_project/modules/category_products/category_products.dart';
 import 'package:g_project/modules/discounts/discount.dart';
 import 'package:g_project/modules/product_details/product_details.dart';
+import 'package:g_project/modules/search/search_screen.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -29,7 +30,8 @@ class HomeScreen extends StatelessWidget {
                 elevation: 2,
                 actions: [
                   IconButton(
-                      onPressed: () => navigateTo(context, CartScreen()),
+                      onPressed: () =>
+                          navigateTo(context, const SearchScreen()),
                       icon: const Icon(
                         FontAwesome5.search,
                         size: 22,
@@ -54,7 +56,8 @@ class HomeScreen extends StatelessWidget {
                   elevation: 2,
                   actions: [
                     IconButton(
-                        onPressed: () => navigateTo(context, CartScreen()),
+                        onPressed: () =>
+                            navigateTo(context, const SearchScreen()),
                         icon: const Icon(
                           FontAwesome5.search,
                           size: 22,

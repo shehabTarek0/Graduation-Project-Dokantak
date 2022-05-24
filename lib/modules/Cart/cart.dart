@@ -128,7 +128,7 @@ class _CartScreenState extends State<CartScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '4 Products',
+                                '${b! + b0! + b1! + b2! + b3!} Products',
                                 style: TextStyle(
                                     color: Colors.grey[700], fontSize: 17),
                               ),
@@ -136,14 +136,16 @@ class _CartScreenState extends State<CartScreen> {
                                 height: 6,
                               ),
                               Text(
-                                'Total: 1 LE',
+                                'Total: ${pricePro! + priceProduct0! + priceProduct1! + priceProduct2! + priceProduct3!} LE',
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
                           defaultButton(
-                              function: () {},
+                              function: () {
+                                AppCubit.get(context).postCheckOut();
+                              },
                               text: 'Check Out',
                               style: const TextStyle(
                                   fontSize: 20, color: Colors.white),

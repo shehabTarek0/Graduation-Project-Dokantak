@@ -774,4 +774,32 @@ class AppCubit extends Cubit<AppStates> {
       );
     }
   }
+
+  int total() {
+    // emit(AppTotalLoad());
+    b ??= 0;
+    b0 ??= 0;
+    b1 ??= 0;
+    b2 ??= 0;
+    b3 ??= 0;
+    int totalnum = b! + b0! + b1! + b2! + b3!;
+    // emit(AppTotalSucc());
+    return totalnum;
+  }
+
+  double totalPrice() {
+    // emit(AppTotalLoad());
+    pricePro ??= 0;
+    priceProduct0 ??= 0;
+    priceProduct1 ??= 0;
+    priceProduct2 ??= 0;
+    priceProduct3 ??= 0;
+    double totalnum = pricePro! +
+        priceProduct0! +
+        priceProduct1! +
+        priceProduct2! +
+        priceProduct3!;
+    // emit(AppTotalSucc());
+    return totalnum;
+  }
 }

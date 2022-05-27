@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/shared/styles/colors.dart';
 
 class AppLayout extends StatelessWidget {
   const AppLayout({Key? key}) : super(key: key);
@@ -15,18 +14,21 @@ class AppLayout extends StatelessWidget {
               body: AppCubit.get(context)
                   .bottomScreen[AppCubit.get(context).currentIndex],
               bottomNavigationBar: BottomNavigationBar(
-                fixedColor: mainColor,
+                fixedColor: const Color.fromARGB(255, 93, 62, 194),
                 onTap: (index) {
                   AppCubit.get(context).changeBottom(index);
                 },
                 currentIndex: AppCubit.get(context).currentIndex,
                 items: const [
                   BottomNavigationBarItem(
-                      icon: Icon(FontAwesome5.home), label: 'Home'),
+                      icon: Icon(Icons.home_sharp, size: 29), label: 'Home'),
                   BottomNavigationBarItem(
                       icon: Icon(FontAwesome5.store_alt), label: 'Categories'),
                   BottomNavigationBarItem(
-                      icon: Icon(FontAwesome5.shopping_cart,), label: 'Cart'),
+                      icon: Icon(
+                        FontAwesome5.shopping_cart,
+                      ),
+                      label: 'Cart'),
                   BottomNavigationBarItem(
                       icon: Icon(FontAwesome5.bars), label: 'More')
                 ],

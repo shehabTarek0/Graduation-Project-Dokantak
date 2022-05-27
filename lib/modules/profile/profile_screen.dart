@@ -1,10 +1,15 @@
-// ignore_for_file: prefer_if_null_operators, unnecessary_null_comparison
+// ignore_for_file: prefer_if_null_operators, unnecessary_null_comparison, deprecated_member_use
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
+import 'package:g_project/models/del.dart';
 import 'package:g_project/models/profile_model.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -31,49 +36,151 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget profile(Data data) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
+    if (data.photo != null) {
+      return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            width: double.infinity,
+            height: 400,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
-                  backgroundColor: Colors.grey[500],
-                  radius: 50,
-                  backgroundImage: NetworkImage(
-                      'https://care.ssd-co.com/storage/app/public/${data.photo}' ==
-                              null
-                          ? 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
-                          : 'https://care.ssd-co.com/storage/app/public/${data.photo}',
-                      scale: 90),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  '${data.name}',
-                  style: const TextStyle(
-                    fontSize: 30,
+                SizedBox(
+                  height: 115,
+                  width: 115,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    clipBehavior: Clip.none,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              'https://care.ssd-co.com/storage/app/public/${data.photo}',
+                              scale: 90)),
+                      Positioned(
+                        right: -16,
+                        bottom: 0,
+                        child: SizedBox(
+                          height: 46,
+                          width: 46,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                side: const BorderSide(color: Colors.white),
+                              ),
+                              primary: Colors.white,
+                              backgroundColor: const Color(0xFFF5F6F9),
+                            ),
+                            onPressed: () {},
+                            child: SvgPicture.asset(
+                                "assets/icons/Camera Icon.svg"),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
+                Text(
+                  'Name : ${data.name}',
+                  style: const TextStyle(fontSize: 30),
+                ),
+                Text(
+                  'Email : ${data.email}',
+                  style: const TextStyle(fontSize: 30),
+                ),
+                Text(
+                  'Phone : ${data.mobile}',
+                  style: const TextStyle(fontSize: 30),
+                ),
+                RichText(
+                    text: TextSpan(children: [
+                  TextSpan(
+                    text: 'Location',
+                    style: const TextStyle(color: Colors.blue, fontSize: 30),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        /*  // MapUtils.openmap(31.230031500928717, 29.98739952423728);
+                        const url =
+                            'comgooglemaps://?center=31.230031500928717, 29.98739952423728';
+                        final urll =
+                            Uri.https('maps.app.goo.gl', 'W9Y7U1okaCL8TEy26');
+                        if (await canLaunchUrlString(url)) {
+                          // await launchUrl(urll);
+                          await launch(url,
+                              forceWebView: true, enableJavaScript: true);
+                        } */
+                      },
+                  ),
+                ]))
               ],
             ),
-            Text(
-              '${data.mobile}',
-              style: const TextStyle(
-                fontSize: 30,
-              ),
-            ),
-            Text(
-              '${data.address}',
-              style: const TextStyle(
-                fontSize: 30,
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 115,
+                width: 115,
+                child: Stack(
+                  fit: StackFit.expand,
+                  clipBehavior: Clip.none,
+                  children: [
+                    const CircleAvatar(
+                        backgroundImage: AssetImage(
+                          'assets/images/7.png',
+                        ),
+                        backgroundColor: Colors.white),
+                    Positioned(
+                      right: -16,
+                      bottom: 0,
+                      child: SizedBox(
+                        height: 46,
+                        width: 46,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                              side: const BorderSide(color: Colors.white),
+                            ),
+                            primary: Colors.white,
+                            backgroundColor: const Color(0xFFF5F6F9),
+                          ),
+                          onPressed: () {},
+                          child:
+                              SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                '${data.mobile}',
+                style: const TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+              Text(
+                '${data.address}',
+                style: const TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
   }
 }

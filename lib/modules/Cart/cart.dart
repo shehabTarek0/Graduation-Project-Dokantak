@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
@@ -128,15 +126,16 @@ class _CartScreenState extends State<CartScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${b! + b0! + b1! + b2! + b3!} Products',
-                                style: TextStyle(
-                                    color: Colors.grey[700], fontSize: 17),
+                                '${AppCubit.get(context).total()} Products',
+                                style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 20),
                               ),
                               const SizedBox(
-                                height: 6,
+                                height: 10,
                               ),
                               Text(
-                                'Total: ${pricePro! + priceProduct0! + priceProduct1! + priceProduct2! + priceProduct3!} LE',
+                                'Total: ${AppCubit.get(context).totalPrice()} LE',
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),

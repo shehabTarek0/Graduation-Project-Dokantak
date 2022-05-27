@@ -1,5 +1,8 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/Favourite_model.dart';
@@ -15,25 +18,66 @@ class FavouriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(builder: (context, state) {
-      return Scaffold(
-          appBar: AppBar(
-            elevation: 2,
-            centerTitle: true,
-            title: const Text(
-              'Favourites',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                letterSpacing: 2.5,
+    return BlocConsumer<AppCubit, AppStates>(
+        builder: (context, state) {
+          if (AppCubit.get(context).favModel != null &&
+              AppCubit.get(context).categoryProductsModel != null) {
+            return Scaffold(
+              appBar: AppBar(
+                elevation: 2,
+                centerTitle: true,
+                title: const Text(
+                  'Favourites',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 2.5,
+                  ),
+                ),
               ),
-            ),
-          ),
-          body: buildFav(context, AppCubit.get(context).favModel!));
-    }, listener: (context, state) {
-      if (state is AppErrorChangeFavouritesState) {
-        flutterToast(text: 'eee', state: ToastStates.S);
-      }
-    });
+              body: buildFav(context, AppCubit.get(context).favModel!),
+            );
+          } else {
+            return Scaffold(
+              appBar: AppBar(
+                elevation: 2,
+                centerTitle: true,
+                title: const Text(
+                  'My Favourite',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 2.5,
+                  ),
+                ),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Icon(
+                        FontAwesome5.heart_broken,
+                        size: 150,
+                        color: Colors.grey[300],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        'No Products in Favourite',
+                        style: TextStyle(fontSize: 25, color: Colors.grey[400]),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+          }
+        },
+        listener: (context, state) {});
   }
 
   Widget buildFav(context, FavouritesModel favouritesModel) =>

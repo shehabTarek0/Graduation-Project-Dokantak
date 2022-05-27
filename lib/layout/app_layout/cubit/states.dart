@@ -70,3 +70,7 @@ class AppSuccesSearchProductsState extends AppStates {}
 class AppErrorSearchProductsState extends AppStates {}
 
 class App extends AppStates {}
+
+class AppTotalLoad extends AppStates {}
+
+class AppTotalSucc extends AppStates {}

@@ -1,9 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/models/data.dart';
 import 'package:g_project/modules/Cart/cart.dart';

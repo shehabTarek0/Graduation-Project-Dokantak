@@ -1,20 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/profile_model.dart';
 import 'package:g_project/modules/changepass/changepass.dart';
 import 'package:g_project/modules/favourite/favourite.dart';
-import 'package:g_project/modules/notification_screen/notification.dart';
+import 'package:g_project/modules/more_screen/profilemenu.dart';
 import 'package:g_project/modules/profile/profile_screen.dart';
 import 'package:g_project/modules/start/start.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
-import 'package:g_project/shared/styles/colors.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
@@ -36,168 +33,53 @@ class MoreScreen extends StatelessWidget {
                 ),
               ),
               body: SingleChildScrollView(
-                child: Container(
-                  height: 720,
-                  color: HexColor('f9f9f9'),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      vProfile(context, AppCubit.get(context).proModel),
-                      GestureDetector(
-                        onTap: () =>
-                            navigateTo(context, const FavouriteScreen()),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 25),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesome5.heart,
-                                  size: 22,
-                                  color: HexColor('ED1B36'),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      'Favourites',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1,
-                                          fontSize: 20),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                const Icon(
-                                  Icons.arrow_forward_ios_sharp,
-                                  size: 24,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                      profilePic(
+                          context, AppCubit.get(context).proModel!.data![0]),
+                      const SizedBox(height: 20),
+                      ProfileMenu(
+                        text: "My Account",
+                        icon: "assets/icons/User.svg",
+                        c1: const Color.fromARGB(221, 26, 22, 22),
+                        c2: const Color.fromARGB(209, 46, 34, 171),
+                        press: () =>
+                            {navigateTo(context, const ProfileScreen())},
                       ),
-                      GestureDetector(
-                        onTap: () =>
-                            navigateTo(context, const NotificationScreen()),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 25),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesome5.bell,
-                                  size: 22,
-                                  color: HexColor('#7A92A3'),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      'Notifications',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1,
-                                          fontSize: 20),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                const Icon(
-                                  Icons.arrow_forward_ios_sharp,
-                                  size: 24,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                      ProfileMenu(
+                        text: "Favourite",
+                        icon: "assets/icons/Heart Icon_2.svg",
+                        c1: const Color.fromARGB(221, 26, 22, 22),
+                        c2: const Color.fromARGB(224, 243, 27, 27),
+                        press: () {
+                          AppCubit.get(context).getFavourites();
+                          navigateTo(context, const FavouriteScreen());
+                        },
                       ),
-                      GestureDetector(
-                        onTap: () => navigateTo(context, ChangePass()),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 25),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesome5.key,
-                                  size: 22,
-                                  color: HexColor('#55CE63'),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      'Change Password',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1,
-                                          fontSize: 20),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                const Icon(
-                                  Icons.arrow_forward_ios_sharp,
-                                  size: 24,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                      ProfileMenu(
+                        text: "Change Password",
+                        icon: "assets/icons/Lock.svg",
+                        c1: const Color.fromARGB(221, 26, 22, 22),
+                        c2: const Color.fromARGB(223, 45, 243, 27),
+                        press: () => {navigateTo(context, ChangePass())},
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: defaultButton(
-                            text: 'log out',
-                            background: mainColor,
-                            style: const TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                letterSpacing: 1),
-                            function: () {
-                              CacheHelper.removeData(key: 'token')
-                                  .then((value) {
-                                if (value) {
-                                  AppCubit.get(context).currentIndex = 0;
-                                  emailController.text = '';
-                                  passController.text = '';
-                                  navigateAndFinish(
-                                      context, const StartScreen());
-                                }
-                              });
-                            }),
+                      ProfileMenu(
+                        text: "Log Out",
+                        icon: "assets/icons/Log out.svg",
+                        c1: const Color.fromARGB(221, 26, 22, 22),
+                        c2: const Color.fromARGB(223, 136, 174, 176),
+                        press: () => {
+                          CacheHelper.removeData(key: 'token').then((value) {
+                            if (value) {
+                              AppCubit.get(context).currentIndex = 0;
+                              emailController.text = '';
+                              passController.text = '';
+                              navigateAndFinish(context, const StartScreen());
+                            }
+                          })
+                        },
                       ),
                     ],
                   ),
@@ -207,66 +89,79 @@ class MoreScreen extends StatelessWidget {
         listener: (context, state) {});
   }
 
-  Widget vProfile(
-    context,
-    ProfileModel? proModel,
-  ) =>
-      GestureDetector(
-          onTap: () => navigateTo(context, const ProfileScreen()),
-          child: v(context, proModel!.data![0]));
-
-  Widget v(
-    context,
-    Data? data,
-  ) =>
-      Container(
-        margin: const EdgeInsets.only(top: 10, bottom: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.35),
-              spreadRadius: .7,
-              blurRadius: 4,
-              offset: const Offset(0, 3),
+  Widget profilePic(context, Data data) {
+    if (data.photo != null) {
+      return SizedBox(
+        height: 115,
+        width: 115,
+        child: Stack(
+          fit: StackFit.expand,
+          clipBehavior: Clip.none,
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://care.ssd-co.com/storage/app/public/${data.photo}',
+                  scale: 90),
             ),
+            Positioned(
+              right: -16,
+              bottom: 0,
+              child: SizedBox(
+                height: 46,
+                width: 46,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      side: const BorderSide(color: Colors.white),
+                    ),
+                    primary: Colors.white,
+                    backgroundColor: const Color(0xFFF5F6F9),
+                  ),
+                  onPressed: () {},
+                  child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                ),
+              ),
+            )
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${data!.name}',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                        fontSize: 27),
+      );
+    } else {
+      return SizedBox(
+        height: 115,
+        width: 115,
+        child: Stack(
+          fit: StackFit.expand,
+          clipBehavior: Clip.none,
+          children: [
+            const CircleAvatar(
+                backgroundImage: AssetImage(
+                  'assets/images/7.png',
+                ),
+                backgroundColor: Colors.white),
+            Positioned(
+              right: -16,
+              bottom: 0,
+              child: SizedBox(
+                height: 46,
+                width: 46,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      side: const BorderSide(color: Colors.white),
+                    ),
+                    primary: Colors.white,
+                    backgroundColor: const Color(0xFFF5F6F9),
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    'View Profile',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                        color: Colors.grey[600]),
-                  ),
-                ],
+                  onPressed: () {},
+                  child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                ),
               ),
-              const Spacer(),
-              const Icon(
-                Icons.arrow_forward_ios_sharp,
-                size: 25,
-              )
-            ],
-          ),
+            )
+          ],
         ),
       );
+    }
+  }
 }

@@ -7,10 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/app_layout.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/modules/Login/cubit/cubit.dart';
+import 'package:g_project/layout/appmarchant_layout/cubit/cubit.dart';
 import 'package:g_project/modules/onboarding/onboarding_screen.dart';
 import 'package:g_project/modules/splash/splash_screen.dart';
 import 'package:g_project/modules/start/start.dart';
+import 'package:g_project/modules/user/Login/cubit/cubit.dart';
 import 'package:g_project/shared/bloc_observable.dart';
 import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
@@ -62,7 +63,8 @@ class MyApp extends StatelessWidget {
               ..getProfile()
               ..getSearchProducts(),
           ),
-          BlocProvider(create: (context) => LoginCubit())
+          BlocProvider(create: (context) => LoginCubit()),
+          BlocProvider(create: (context) => MarCubit())
         ],
         child: BlocConsumer<AppCubit, AppStates>(
             builder: (context, state) => MaterialApp(

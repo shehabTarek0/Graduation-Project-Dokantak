@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:g_project/modules/Login/login_screen.dart';
+import 'package:g_project/modules/marchant/Login_user/login_screen.dart';
+import 'package:g_project/modules/user/Login/login_screen.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/styles/colors.dart';
 
@@ -51,7 +52,7 @@ class StartScreen extends StatelessWidget {
               ),
               defaultButton(
                   function: () => navigateTo(context, LoginScreen()),
-                  text: 'Login as a customer',
+                  text: 'Login as a User',
                   background: mainColor,
                   width: 370,
                   isUpperCase: false,
@@ -60,8 +61,8 @@ class StartScreen extends StatelessWidget {
                 height: 15,
               ),
               defaultButton(
-                  function: () => navigateTo(context, LoginScreen()),
-                  text: 'Login as an user',
+                  function: () => navigateTo(context, LoginUMarScreen()),
+                  text: 'Login as an Marchant',
                   background: mainColor,
                   width: 370,
                   isUpperCase: false,

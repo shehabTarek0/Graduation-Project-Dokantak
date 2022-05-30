@@ -25,17 +25,21 @@ class RegisterCubit extends Cubit<RegisterStates> {
       required String password,
       required String phone}) {
     emit(RegisterLoadingState());
-    DioHelper.postData(url: REGISTER, data: {
-      'name': name,
-      'email': email,
-      'password': password,
-      'password_confirmation': password,
-      'mobile': phone,
-      'age': "25",
-      'address': "sssssssss",
-      'gender': "male",
-      // 'photo': 'clients/$imageName'
-    }).then((value) {
+    DioHelper.postData(
+            url: REGISTER,
+            data: {
+              'name': name,
+              'email': email,
+              'password': password,
+              'password_confirmation': password,
+              'mobile': phone,
+              'age': "25",
+              'address': "sssssssss",
+              'gender': "male",
+              'photo': 'clients/$imageName'
+            },
+            c: "multipart/form-data; boundary=<calculated when request is sent>")
+        .then((value) {
       registeruserModel = RegisterUserModel.fromJson(value.data);
       emit(RegisterSuccesState(registeruserModel!));
     }).catchError((e) {

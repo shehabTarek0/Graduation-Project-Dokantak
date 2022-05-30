@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:g_project/shared/network/end_points.dart';
 
 class DioHelper {
   static var dio = Dio();
@@ -30,15 +33,34 @@ class DioHelper {
     );
   }
 
+  Future<Response> uploadImage(
+      {required String url,
+      Map<String, dynamic>? data,
+      required File
+          file} /*  String name, String email, String pass, String mobile */) async {
+    // String filename = file.path.split('/').last;
+    FormData formData = FormData.fromMap(data!);
+    /* 'name': name,
+      'email': email,
+      'password': pass,
+      'password_confirmation': pass,
+      'mobile': mobile,
+      'photo': await MultipartFile.fromFile(file.path, filename: filename),
+      'address': "cairofdfggff" */
+
+    return dio.post(url, data: formData);
+  }
+
   static Future<Response> postData(
       {required String url,
       Map<String, dynamic>? data,
       Map<String, dynamic>? query,
       String lang = 'en',
+      String c = 'application/json',
       String? token}) async {
     dio.options.headers = {
       'lang': lang,
-      'Content-Type': 'application/json',
+      'Content-Type': c,
       'Authorization': token
     };
 

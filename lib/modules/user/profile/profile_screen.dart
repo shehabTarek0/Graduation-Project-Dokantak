@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/profile_model.dart';
+import 'package:g_project/shared/network/end_points.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                           backgroundImage: NetworkImage(
-                              'https://care.ssd-co.com/storage/app/public/${data.photo}',
+                              '${IMAGEPATH}${data.photo}',
                               scale: 90)),
                       Positioned(
                         right: -16,

@@ -1,21 +1,47 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:g_project/modules/user/Login/login_screen.dart';
 import 'package:g_project/modules/user/register/cubit/cubit.dart';
 import 'package:g_project/modules/user/register/cubit/states.dart';
+import 'package:g_project/modules/user/register/service.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/network/end_points.dart';
+import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
 import 'package:g_project/shared/styles/colors.dart';
+import 'package:image_picker/image_picker.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
+
   final nameController = TextEditingController();
+
   final emailController = TextEditingController();
+
   final passController = TextEditingController();
+
   final phoneController = TextEditingController();
+
+  Service service = Service();
+
+  final _addFormKey = GlobalKey<FormState>();
+
+  File? _image;
+
+  final picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -113,7 +139,8 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       defaultButton(
                           function: () {
-                            RegisterCubit.get(context).pickImage();
+                            getImage();
+                            //RegisterCubit.get(context).pickImage();
                           },
                           text: 'Choose photo',
                           height: 60,
@@ -125,21 +152,56 @@ class RegisterScreen extends StatelessWidget {
                       const SizedBox(
                         height: 35,
                       ),
-                      state is! RegisterLoadingState
-                          ? defaultButton(
-                              function: () {
-                                if (formKey.currentState!.validate()) {
-                                  RegisterCubit.get(context).userRegister(
+                      // state is! RegisterLoadingState
+                      defaultButton(
+                          function: () async {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              DioHelper()
+                                  .uploadImage(
+                                      url: REGISTER,
+                                      data: {
+                                        'name': nameController.text,
+                                        'email': emailController.text,
+                                        'password': passController.text,
+                                        'password_confirmation':
+                                            passController.text,
+                                        'mobile': phoneController.text,
+                                        'photo': await MultipartFile.fromFile(
+                                            _image!.path,
+                                            filename:
+                                                _image!.path.split('/').last),
+                                        'address': "cairofdfggff"
+                                      },
+                                      file: _image!)
+                                  .then((value) => {
+                                        Fluttertoast.showToast(msg: "Ok"),
+                                      });
+
+                              /*  Map<String, String> body = {
+                                'name': nameController.text,
+                                'email': emailController.text,
+                                'password': passController.text,
+                                'password_confirmation': passController.text,
+                                'mobile': phoneController.text,
+                                'photo': 'clients/${_image!.path}',
+                                'address': "cairofdfggff"
+                              };
+                              service.addImage(body, _image!.path);
+                              Navigator.pop(context);*/
+                            }
+                          },
+
+                          /*  RegisterCubit.get(context).userRegister(
                                       name: nameController.text,
                                       email: emailController.text,
                                       password: passController.text,
-                                      phone: phoneController.text);
-                                  // navigateAndFinish(context, LoginScreen());
-                                }
-                              },
-                              text: 'REGISTER',
-                              background: mainColor)
-                          : const Center(child: CircularProgressIndicator()),
+                                      phone: phoneController.text); */
+                          // navigateAndFinish(context, LoginScreen());
+
+                          text: 'REGISTER',
+                          background: mainColor)
+                      // const Center(child: CircularProgressIndicator()),
                     ],
                   ),
                 ),
@@ -192,5 +254,16 @@ class RegisterScreen extends StatelessWidget {
         }
       }),
     );
+  }
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
   }
 }

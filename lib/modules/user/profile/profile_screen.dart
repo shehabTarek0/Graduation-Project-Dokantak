@@ -55,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                           backgroundImage: NetworkImage(
-                              '${IMAGEPATH}${data.photo}',
+                              '$IMAGEPATH${data.photo}',
                               scale: 90)),
                       Positioned(
                         right: -16,

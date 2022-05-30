@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:g_project/shared/network/end_points.dart';
 
 class DioHelper {
   static var dio = Dio();

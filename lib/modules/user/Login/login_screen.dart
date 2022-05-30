@@ -114,7 +114,8 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 defaultTextButton(
                                     onPress: () {
-                                      navigateTo(context, RegisterScreen());
+                                      navigateTo(
+                                          context, const RegisterScreen());
                                     },
                                     text: 'Register Now',
                                     style: const TextStyle(fontSize: 16))

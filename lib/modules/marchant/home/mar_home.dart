@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g_project/modules/marchant/add_product/add_product.dart';
 import 'package:g_project/shared/component/component.dart';
-import 'package:g_project/shared/styles/colors.dart';
 
 class MarHome extends StatelessWidget {
   const MarHome({Key? key}) : super(key: key);

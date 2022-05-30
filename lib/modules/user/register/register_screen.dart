@@ -9,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:g_project/modules/user/Login/login_screen.dart';
 import 'package:g_project/modules/user/register/cubit/cubit.dart';
 import 'package:g_project/modules/user/register/cubit/states.dart';
-import 'package:g_project/modules/user/register/service.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/network/end_points.dart';
 import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
@@ -17,7 +16,7 @@ import 'package:g_project/shared/styles/colors.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -33,10 +32,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passController = TextEditingController();
 
   final phoneController = TextEditingController();
-
-  Service service = Service();
-
-  final _addFormKey = GlobalKey<FormState>();
 
   File? _image;
 
@@ -257,7 +252,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);

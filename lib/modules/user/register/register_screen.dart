@@ -10,6 +10,7 @@ import 'package:g_project/modules/user/Login/login_screen.dart';
 import 'package:g_project/modules/user/register/cubit/cubit.dart';
 import 'package:g_project/modules/user/register/cubit/states.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/end_points.dart';
 import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
 import 'package:g_project/shared/styles/colors.dart';
@@ -24,14 +25,6 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
-
-  final nameController = TextEditingController();
-
-  final emailController = TextEditingController();
-
-  final passController = TextEditingController();
-
-  final phoneController = TextEditingController();
 
   File? _image;
 
@@ -129,6 +122,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                           prefix: Icons.phone),
+                      defaultFormField(
+                          text: 'Address',
+                          controller: addressController,
+                          type: TextInputType.text,
+                          validator: (value) {
+                            if (value.toString().isEmpty) {
+                              return 'please enter your Address';
+                            } else if (value.toString().length != 7) {
+                              return 'the Address is not available';
+                            }
+                            return null;
+                          },
+                          prefix: Icons.add_road_rounded),
                       const SizedBox(
                         height: 35,
                       ),

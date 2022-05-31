@@ -8,6 +8,7 @@ import 'package:g_project/models/category_model.dart';
 import 'package:g_project/models/change_favourites_model.dart';
 import 'package:g_project/models/checkout_model.dart';
 import 'package:g_project/models/data.dart';
+import 'package:g_project/models/edit_profile_model.dart';
 import 'package:g_project/models/profile_model.dart';
 import 'package:g_project/modules/user/Cart/cart.dart';
 import 'package:g_project/modules/user/Home/home.dart';
@@ -147,6 +148,33 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppSuccesCheckOutState());
     }).catchError((e) {
       emit(AppErrorCheckOutState());
+    });
+  }
+
+  EditProfile? editProfile;
+
+  void profileEdit({
+    required String name,
+    required String email,
+    required String address,
+  }) {
+    emit(AppLoadingEditProfileState());
+    DioHelper.postData(
+            url: 'https://care.ssd-co.com/api/client/update',
+            data: {
+              "name": name,
+              "email": email,
+              "address": address,
+              "longitude": "cairo",
+              "latitude": "naser"
+            },
+            token: 'Bearer $token')
+        .then((value) {
+      editProfile = EditProfile.fromJson(value.data);
+      getProfile();
+      emit(AppSuccesEditProfileState());
+    }).catchError((e) {
+      emit(AppErrorEditProfileState());
     });
   }
 

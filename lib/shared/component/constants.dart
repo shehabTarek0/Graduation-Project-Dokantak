@@ -7,6 +7,10 @@ double? pricePro, priceProduct0, priceProduct1, priceProduct2, priceProduct3;
 int? b, b0, b1, b2, b3;
 String? token;
 int? currentIndex;
+
+final nameController = TextEditingController();
+final phoneController = TextEditingController();
+final addressController = TextEditingController();
 var passController = TextEditingController();
 var emailController = TextEditingController();
 const kPrimaryColor = Color(0xFFFF7643);

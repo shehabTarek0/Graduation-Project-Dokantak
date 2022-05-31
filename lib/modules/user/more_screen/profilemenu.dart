@@ -8,13 +8,17 @@ class ProfileMenu extends StatelessWidget {
     required this.icon,
     this.press,
     required this.c1,
+    this.width = 22,
     required this.c2,
+    this.i = const Icon(Icons.arrow_forward_ios),
   }) : super(key: key);
 
   final String text, icon;
+  final Widget i;
   final VoidCallback? press;
   final Color c1;
   final Color c2;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +38,15 @@ class ProfileMenu extends StatelessWidget {
             SvgPicture.asset(
               icon,
               color: c2,
-              width: 22,
+              width: width,
             ),
             const SizedBox(width: 20),
             Expanded(
                 child: Text(
               text,
-              style: const TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, color: c1),
             )),
-            const Icon(Icons.arrow_forward_ios),
+            i,
           ],
         ),
       ),

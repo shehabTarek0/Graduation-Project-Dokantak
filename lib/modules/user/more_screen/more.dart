@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/profile_model.dart';
@@ -11,6 +10,7 @@ import 'package:g_project/modules/user/more_screen/profilemenu.dart';
 import 'package:g_project/modules/user/profile/profile_screen.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
+import 'package:g_project/shared/network/end_points.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -99,11 +99,12 @@ class MoreScreen extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             CircleAvatar(
+              backgroundColor: Colors.white,
               backgroundImage: NetworkImage(
-                  'https://care.ssd-co.com/storage/app/public/${data.photo}',
-                  scale: 90),
+                IMAGEPATH + data.photo!,
+              ),
             ),
-            Positioned(
+            /* Positioned(
               right: -16,
               bottom: 0,
               child: SizedBox(
@@ -122,7 +123,7 @@ class MoreScreen extends StatelessWidget {
                   child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
                 ),
               ),
-            )
+            ) */
           ],
         ),
       );
@@ -133,13 +134,13 @@ class MoreScreen extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           clipBehavior: Clip.none,
-          children: [
-            const CircleAvatar(
+          children: const [
+            CircleAvatar(
                 backgroundImage: AssetImage(
                   'assets/images/7.png',
                 ),
                 backgroundColor: Colors.white),
-            Positioned(
+            /* Positioned(
               right: -16,
               bottom: 0,
               child: SizedBox(
@@ -158,7 +159,7 @@ class MoreScreen extends StatelessWidget {
                   child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
                 ),
               ),
-            )
+            ) */
           ],
         ),
       );

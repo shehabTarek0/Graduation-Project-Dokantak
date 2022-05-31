@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/models/login_user_model.dart';
@@ -21,7 +19,6 @@ class LoginCubit extends Cubit<LoginStates> {
       CacheHelper.saveData(key: 'id', value: userModel!.data!.id);
       emit(LoginSuccesState(userModel!));
     }).catchError((e) {
-      print(e);
       emit(LoginErrorState(e.toString()));
     });
   }

@@ -122,6 +122,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                           prefix: Icons.phone),
+                      const SizedBox(
+                        height: 25,
+                      ),
                       defaultFormField(
                           text: 'Address',
                           controller: addressController,
@@ -129,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           validator: (value) {
                             if (value.toString().isEmpty) {
                               return 'please enter your Address';
-                            } else if (value.toString().length != 7) {
+                            } else if (value.toString().length < 7) {
                               return 'the Address is not available';
                             }
                             return null;
@@ -141,7 +144,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       defaultButton(
                           function: () {
                             getImage();
-                            //RegisterCubit.get(context).pickImage();
                           },
                           text: 'Choose photo',
                           height: 60,
@@ -153,7 +155,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(
                         height: 35,
                       ),
-                      // state is! RegisterLoadingState
                       defaultButton(
                           function: () async {
                             if (formKey.currentState!.validate()) {
@@ -172,37 +173,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             _image!.path,
                                             filename:
                                                 _image!.path.split('/').last),
-                                        'address': "cairofdfggff"
+                                        'address': addressController.text
                                       },
                                       file: _image!)
                                   .then((value) => {
                                         Fluttertoast.showToast(msg: "Ok"),
+                                        nameController.text = '',
+                                        phoneController.text = '',
+                                        addressController.text = '',
+                                        emailController.text = '',
+                                        passController.text = '',
+                                        navigateAndFinish(
+                                            context, LoginScreen())
                                       });
-
-                              /*  Map<String, String> body = {
-                                'name': nameController.text,
-                                'email': emailController.text,
-                                'password': passController.text,
-                                'password_confirmation': passController.text,
-                                'mobile': phoneController.text,
-                                'photo': 'clients/${_image!.path}',
-                                'address': "cairofdfggff"
-                              };
-                              service.addImage(body, _image!.path);
-                              Navigator.pop(context);*/
                             }
                           },
-
-                          /*  RegisterCubit.get(context).userRegister(
-                                      name: nameController.text,
-                                      email: emailController.text,
-                                      password: passController.text,
-                                      phone: phoneController.text); */
-                          // navigateAndFinish(context, LoginScreen());
-
                           text: 'REGISTER',
                           background: mainColor)
-                      // const Center(child: CircularProgressIndicator()),
                     ],
                   ),
                 ),
@@ -213,12 +200,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }, listener: (context, state) {
         if (state is RegisterSuccesState) {
           if (state.registeruserModel.success!) {
-            /* CacheHelper.saveData(
-                        key: 'token', value: state.registeruserModel.data!.token)
-                    .then((value) {
-                  token = state.registerModel.data!.token;
-                  navigateAndFinish(context, LoginScreen());
-                }); */
             Fluttertoast.showToast(
                 msg: state.registeruserModel.message!,
                 toastLength: Toast.LENGTH_LONG,

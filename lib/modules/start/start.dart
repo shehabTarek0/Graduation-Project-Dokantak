@@ -52,7 +52,7 @@ class StartScreen extends StatelessWidget {
               ),
               defaultButton(
                   function: () => navigateTo(context, LoginScreen()),
-                  text: 'Login as a User',
+                  text: 'Login as an User',
                   background: mainColor,
                   width: 370,
                   isUpperCase: false,
@@ -62,7 +62,7 @@ class StartScreen extends StatelessWidget {
               ),
               defaultButton(
                   function: () => navigateTo(context, LoginUMarScreen()),
-                  text: 'Login as an Marchant',
+                  text: 'Login as a Marchant',
                   background: mainColor,
                   width: 370,
                   isUpperCase: false,

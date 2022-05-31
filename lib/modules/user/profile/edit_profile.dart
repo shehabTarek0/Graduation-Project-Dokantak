@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/modules/user/profile/profile_screen.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
 
@@ -32,9 +31,9 @@ class ProfileEdit extends StatelessWidget {
   }
 
   Widget editProfile(context) {
-    nameController.text = AppCubit.get(context).proModel!.data![0].name!;
+/*     nameController.text = AppCubit.get(context).proModel!.data![0].name!;
     emailController.text = AppCubit.get(context).proModel!.data![0].email!;
-    addressController.text = AppCubit.get(context).proModel!.data![0].address!;
+    addressController.text = AppCubit.get(context).proModel!.data![0].address!; */
     return Center(
       child: SingleChildScrollView(
         child: Padding(
@@ -98,6 +97,9 @@ class ProfileEdit extends StatelessWidget {
                           name: nameController.text,
                           email: emailController.text,
                           address: addressController.text);
+                      nameController.text = '';
+                      emailController.text = '';
+                      addressController.text = '';
                     },
                     text: 'Save',
                     style: const TextStyle(

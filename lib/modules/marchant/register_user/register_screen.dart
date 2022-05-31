@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:g_project/modules/marchant/Login_user/login_screen.dart';
 import 'package:g_project/modules/marchant/register_user/cubit/cubit.dart';
 import 'package:g_project/modules/marchant/register_user/cubit/states.dart';
-import 'package:g_project/modules/user/Login/login_screen.dart';
 import 'package:g_project/modules/user/register/cubit/states.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -118,7 +118,7 @@ class RegisterScreen extends StatelessWidget {
                                       email: emailController.text,
                                       password: passController.text,
                                       phone: phoneController.text);
-                                  navigateAndFinish(context, LoginScreen());
+                                  navigateAndFinish(context, LoginUMarScreen());
                                 }
                               },
                               text: 'REGISTER',

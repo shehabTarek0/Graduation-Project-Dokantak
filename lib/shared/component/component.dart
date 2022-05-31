@@ -30,20 +30,20 @@ Widget defaultButton({
       ),
     );
 
-Widget defaultFormField({
-  required String text,
-  required TextEditingController controller,
-  required TextInputType type,
-  required FormFieldValidator validator,
-  IconData? prefix,
-  IconData? suffix,
-  GestureTapCallback? onTap,
-  Function? suffixPressed,
-  ValueChanged? onChanged,
-  ValueChanged? onSubmit,
-  bool isPassword = false,
-  int numOfLines = 1,
-}) =>
+Widget defaultFormField(
+        {required String text,
+        required TextEditingController controller,
+        required TextInputType type,
+        required FormFieldValidator validator,
+        IconData? prefix,
+        IconData? suffix,
+        GestureTapCallback? onTap,
+        Function? suffixPressed,
+        ValueChanged? onChanged,
+        ValueChanged? onSubmit,
+        bool isPassword = false,
+        int numOfLines = 1,
+        bool t = true}) =>
     TextFormField(
       maxLines: numOfLines,
       obscureText: isPassword,
@@ -53,6 +53,7 @@ Widget defaultFormField({
       validator: validator,
       onTap: onTap,
       onFieldSubmitted: onSubmit,
+      enabled: t,
       decoration: InputDecoration(
           // labelText: text,
           hintText: text,

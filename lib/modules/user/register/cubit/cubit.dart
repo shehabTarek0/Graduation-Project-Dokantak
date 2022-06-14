@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:g_project/models/register_user_model.dart';
+import 'package:g_project/models/user/register_user_model.dart';
 import 'package:g_project/modules/user/register/cubit/states.dart';
 import 'package:g_project/shared/network/end_points.dart';
 import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';

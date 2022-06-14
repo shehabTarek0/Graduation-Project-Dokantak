@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/models/category_model.dart';
+import 'package:g_project/models/user/category_model.dart';
 import 'package:g_project/modules/user/category_products/category_products.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:hexcolor/hexcolor.dart';

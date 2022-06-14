@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/models/profile_model.dart';
+import 'package:g_project/models/user/profile_model.dart';
 import 'package:g_project/modules/user/more_screen/profilemenu.dart';
 import 'package:g_project/modules/user/profile/edit_profile.dart';
 import 'package:g_project/shared/component/component.dart';

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/appmarchant_layout/marchant_layout.dart';
-import 'package:g_project/modules/marchant/Login_user/cubit/cubit.dart';
-import 'package:g_project/modules/marchant/Login_user/cubit/states.dart';
-import 'package:g_project/modules/marchant/register_user/register_screen.dart';
+import 'package:g_project/modules/marchant/Login_mer/cubit/cubit.dart';
+import 'package:g_project/modules/marchant/Login_mer/cubit/states.dart';
+import 'package:g_project/modules/marchant/register_mer/register_screen.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../../../shared/component/constants.dart';
 
 class LoginUMarScreen extends StatelessWidget {
   LoginUMarScreen({Key? key}) : super(key: key);
-  final formKey = GlobalKey<FormState>();
+  final formKeyy = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class LoginUMarScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
-                        key: formKey,
+                        key: formKeyy,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -60,7 +63,7 @@ class LoginUMarScreen extends StatelessWidget {
                             defaultFormField(
                                 text: 'Password',
                                 onSubmit: (value) {
-                                  if (formKey.currentState!.validate()) {
+                                  if (formKeyy.currentState!.validate()) {
                                     LoginMarCubit.get(context).marLogin(
                                         email: emailController.text,
                                         password: passController.text);
@@ -87,14 +90,11 @@ class LoginUMarScreen extends StatelessWidget {
                             state is! LoginMarLoadingState
                                 ? defaultButton(
                                     function: () {
-                                      /* if (formKey.currentState!.validate()) {
+                                      if (formKeyy.currentState!.validate()) {
                                         LoginMarCubit.get(context).marLogin(
                                             email: emailController.text,
                                             password: passController.text);
-                                        
-                                      } */
-                                      navigateAndFinish(
-                                          context, const MarLayout());
+                                      }
                                     },
                                     text: 'login',
                                     background: HexColor('ED1B36'))
@@ -112,7 +112,7 @@ class LoginUMarScreen extends StatelessWidget {
                                 ),
                                 defaultTextButton(
                                     onPress: () {
-                                      navigateTo(context, RegisterScreen());
+                                      navigateTo(context, RegisterMerScreen());
                                     },
                                     text: 'Register Now',
                                     style: const TextStyle(fontSize: 16))
@@ -126,20 +126,26 @@ class LoginUMarScreen extends StatelessWidget {
                 ),
               ),
           listener: (context, state) {
-            /* if (state is LoginSuccesState) {
-              if (state.loginModel.status!) {
+            if (state is LoginMarrSuccesState) {
+              if (state.merModel.success!) {
+                flutterToast(
+                    text: state.merModel.message!, state: ToastStates.S);
                 CacheHelper.saveData(
-                        key: 'token', value: state.loginModel.data!.token)
+                        key: 'tokenMer', value: state.merModel.data!.token)
                     .then((value) {
-                  token = state.loginModel.data!.token;
-                  navigateAndFinish(context, ShopLayout());
+                  tokenMer = state.merModel.data!.token;
+                  navigateAndFinish(context, const MarLayout());
                 });
               } else {
-                showToast(
-                    text: state.loginModel.message!, state: ToastStates.e);
-                print(state.loginModel.message);
+                flutterToast(
+                    text: 'username or password is wrong',
+                    state: ToastStates.E);
               }
-            } */
+            }
+            if (state is LoginMarErrorState) {
+              flutterToast(
+                  text: 'username or password is wrong', state: ToastStates.E);
+            }
           }),
     );
   }

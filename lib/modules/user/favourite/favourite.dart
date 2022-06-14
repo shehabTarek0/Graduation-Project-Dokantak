@@ -5,13 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/models/Favourite_model.dart';
 import 'package:g_project/models/data.dart';
 import 'package:g_project/modules/user/product_details/product_details.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../../../models/user/favourite_model.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({Key? key}) : super(key: key);

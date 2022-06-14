@@ -1,4 +1,4 @@
-import 'package:g_project/models/register_user_model.dart';
+import 'package:g_project/models/user/register_user_model.dart';
 
 abstract class RegisterStates {}
 

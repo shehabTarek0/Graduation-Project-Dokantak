@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'package:g_project/models/login_user_model.dart';
+import 'package:g_project/models/user/login_user_model.dart';
 
 abstract class LoginStates {}
 

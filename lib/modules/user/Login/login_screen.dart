@@ -92,7 +92,6 @@ class LoginScreen extends StatelessWidget {
                                         LoginCubit.get(context).userLogin(
                                             email: emailController.text,
                                             password: passController.text);
-                                        // navigateAndFinish(context, const AppLayout());
                                         AppCubit.get(context).getProfile();
                                       }
                                     },

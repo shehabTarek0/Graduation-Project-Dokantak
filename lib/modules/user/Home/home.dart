@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/models/category_model.dart';
+import 'package:g_project/models/user/category_model.dart';
 import 'package:g_project/models/data.dart';
 import 'package:g_project/modules/user/Cart/cart.dart';
 import 'package:g_project/modules/user/categories/categories.dart';

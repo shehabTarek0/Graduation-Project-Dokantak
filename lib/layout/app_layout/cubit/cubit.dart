@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/models/Favourite_model.dart';
-import 'package:g_project/models/Products_model.dart';
-import 'package:g_project/models/category_model.dart';
-import 'package:g_project/models/change_favourites_model.dart';
-import 'package:g_project/models/checkout_model.dart';
+import 'package:g_project/models/user/category_model.dart';
+import 'package:g_project/models/user/change_favourites_model.dart';
+import 'package:g_project/models/user/checkout_model.dart';
 import 'package:g_project/models/data.dart';
-import 'package:g_project/models/edit_profile_model.dart';
-import 'package:g_project/models/profile_model.dart';
+import 'package:g_project/models/user/edit_profile_model.dart';
+import 'package:g_project/models/user/products_model.dart';
+import 'package:g_project/models/user/profile_model.dart';
 import 'package:g_project/modules/user/Cart/cart.dart';
 import 'package:g_project/modules/user/Home/home.dart';
 import 'package:g_project/modules/user/categories/categories.dart';
@@ -20,6 +19,8 @@ import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../../../models/user/favourite_model.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitState());
@@ -165,8 +166,6 @@ class AppCubit extends Cubit<AppStates> {
               "name": name,
               "email": email,
               "address": address,
-              "longitude": "cairo",
-              "latitude": "naser"
             },
             token: 'Bearer $token')
         .then((value) {

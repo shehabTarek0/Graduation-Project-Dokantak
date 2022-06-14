@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:g_project/modules/marchant/Login_user/login_screen.dart';
-import 'package:g_project/modules/marchant/register_user/cubit/cubit.dart';
-import 'package:g_project/modules/marchant/register_user/cubit/states.dart';
-import 'package:g_project/modules/user/register/cubit/states.dart';
+import 'package:g_project/modules/marchant/Login_mer/login_screen.dart';
+import 'package:g_project/modules/marchant/register_mer/cubit/cubit.dart';
+import 'package:g_project/modules/marchant/register_mer/cubit/states.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+class RegisterMerScreen extends StatelessWidget {
+  RegisterMerScreen({Key? key}) : super(key: key);
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passController = TextEditingController();
-  final phoneController = TextEditingController();
+  final passConController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -38,7 +37,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Register now to earn money with Dokantek',
+                        'Register now to earn money with Dokantak',
                         style: TextStyle(fontSize: 18, color: Colors.grey[700]),
                       ),
                       const SizedBox(
@@ -94,30 +93,35 @@ class RegisterScreen extends StatelessWidget {
                         height: 25,
                       ),
                       defaultFormField(
-                          text: 'Phone',
-                          controller: phoneController,
-                          type: TextInputType.number,
+                          text: 'password confirmation',
+                          isPassword: RegisterUserCubit.get(context).isPassword,
+                          controller: passConController,
+                          suffix: RegisterUserCubit.get(context).suffix,
+                          suffixPressed: () {
+                            RegisterUserCubit.get(context).changeIconPass();
+                          },
+                          type: TextInputType.visiblePassword,
                           validator: (value) {
                             if (value.toString().isEmpty) {
-                              return 'please enter your Phone';
-                            } else if (value.toString().length != 11) {
-                              return 'the phone number is not available';
+                              return 'The password is too short';
+                            } else if (value.toString().length < 8) {
+                              return "please Use 8 or more characters ";
                             }
                             return null;
                           },
-                          prefix: Icons.phone),
+                          prefix: Icons.lock_outline),
                       const SizedBox(
-                        height: 25,
+                        height: 50,
                       ),
-                      state is! RegisterLoadingState
+                      state is! RegisterUserLoadingState
                           ? defaultButton(
                               function: () {
                                 if (formKey.currentState!.validate()) {
-                                  RegisterUserCubit.get(context).userRegister(
+                                  RegisterUserCubit.get(context).merRegister(
                                       name: nameController.text,
                                       email: emailController.text,
                                       password: passController.text,
-                                      phone: phoneController.text);
+                                      passwordCon: passConController.text);
                                   navigateAndFinish(context, LoginUMarScreen());
                                 }
                               },

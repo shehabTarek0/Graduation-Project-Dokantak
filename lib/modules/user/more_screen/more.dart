@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
-import 'package:g_project/models/profile_model.dart';
+import 'package:g_project/models/user/profile_model.dart';
 import 'package:g_project/modules/start/start.dart';
 import 'package:g_project/modules/user/changepass/changepass.dart';
 import 'package:g_project/modules/user/favourite/favourite.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:g_project/modules/marchant/register_user/cubit/states.dart';
+import 'package:g_project/modules/marchant/register_mer/cubit/states.dart';
+import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
 
 class RegisterUserCubit extends Cubit<RegisterUserStates> {
   RegisterUserCubit() : super(RegisterUserInitialState());
@@ -8,24 +9,25 @@ class RegisterUserCubit extends Cubit<RegisterUserStates> {
   static RegisterUserCubit get(context) => BlocProvider.of(context);
   // ShopLoginModel registerModel;
 
-  void userRegister(
+  void merRegister(
       {required String name,
       required String email,
       required String password,
-      required String phone}) {
+      required String passwordCon}) {
     emit(RegisterUserLoadingState());
-    /*DioHelper.postData(url: REGISTER, data: {
-      'name': name,
-      'email': email,
-      'password': password,
-      'phone': phone,
-    }).then((value) {
-      registerModel = ShopLoginModel.fromJson(value.data);
-      emit(RegisterSuccesState(registerModel));
+    DioHelper.postData(
+        url: 'https://care.ssd-co.com/api/admin/register',
+        data: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'password_confirmation': passwordCon,
+        }).then((value) {
+      // registerMerModel = ShopLoginModel.fromJson(value.data);
+      emit(RegisterUserSuccesState());
     }).catchError((e) {
-      print(e);
-      emit(RegisterErrorState(e));
-    }); */
+      emit(RegisterUserErrorState(e));
+    });
   }
 
   bool isPassword = true;

@@ -215,6 +215,8 @@ class CategoryProducts extends StatelessWidget {
                               price: data.price,
                               productName: data.productName)
                         ]);
+                        productID.add(data.id!);
+                        print(productID);
                         CacheHelper.saveData(
                             key: 'products', value: encodeData);
                         getPro = CacheHelper.getData(key: 'products');
@@ -348,6 +350,8 @@ class CategoryProducts extends StatelessWidget {
                               price: data.price,
                               productName: data.productName)
                         ]);
+                        productID.add(data.id!);
+                        print(productID);
                         CacheHelper.saveData(
                             key: 'product0', value: encodeData0);
                         getProduct0 = CacheHelper.getData(key: 'product0');
@@ -482,6 +486,8 @@ class CategoryProducts extends StatelessWidget {
                               price: data.price,
                               productName: data.productName)
                         ]);
+                        productID.add(data.id!);
+                        print(productID);
                         CacheHelper.saveData(
                             key: 'product1', value: encodeData1);
                         getProduct1 = CacheHelper.getData(key: 'product1');
@@ -616,6 +622,8 @@ class CategoryProducts extends StatelessWidget {
                               price: data.price,
                               productName: data.productName)
                         ]);
+                        productID.add(data.id!);
+                        print(productID);
                         CacheHelper.saveData(
                             key: 'product2', value: encodeData2);
                         getProduct2 = CacheHelper.getData(key: 'product2');
@@ -750,6 +758,8 @@ class CategoryProducts extends StatelessWidget {
                               price: data.price,
                               productName: data.productName)
                         ]);
+                        productID.add(data.id!);
+                        print(productID);
                         CacheHelper.saveData(
                             key: 'product3', value: encodeData3);
                         getProduct3 = CacheHelper.getData(key: 'product3');

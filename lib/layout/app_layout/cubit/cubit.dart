@@ -65,19 +65,6 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  CategoryProductsModel? productsModel;
-
-  void getSearchProducts() {
-    DioHelper.getData(
-            url: 'https://care.ssd-co.com/api/client/category/product/12')
-        .then((value) {
-      productsModel = CategoryProductsModel.fromJson(value.data);
-      emit(AppSuccesSearchProductsState());
-    }).catchError((e) {
-      emit(AppErrorSearchProductsState());
-    });
-  }
-
   bool isFavourite = false;
   void changeF(int id) {
     isFavourite = !isFavourite;
@@ -90,7 +77,7 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.postData(
             url: 'https://care.ssd-co.com/api/client/wishlist',
             data: {"product_id": id},
-            token: 'Bearer $token')
+            token: '$token')
         .then((value) {
       changeFavourite = ChangeFavourites.fromJson(value.data);
       getFavourites();
@@ -105,7 +92,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingGetFavouritesState());
     DioHelper.getData(
             url: 'https://care.ssd-co.com/api/client/wishlist/products',
-            token: 'Bearer $token')
+            token: '$token')
         .then((value) {
       favModel = FavouritesModel.fromJson(value.data);
       emit(AppSuccesGetFavouritesState());
@@ -119,37 +106,255 @@ class AppCubit extends Cubit<AppStates> {
   void getProfile() async {
     await DioHelper.getData(
             url: 'https://care.ssd-co.com/api/client/profile/info',
-            token: 'Bearer $token')
+            token: '$token')
         .then((value) {
       proModel = ProfileModel.fromJson(value.data);
       emit(AppSuccesGetProfileState());
     }).catchError((e) {
       emit(AppErrorGetProfileState());
+      print(e);
     });
   }
 
   CheckOutModel? checkOut;
 
   void postCheckOut() {
-    DioHelper.postData(
-        url: 'https://care.ssd-co.com/api/cart/add?',
-        token: 'Bearer $token',
-        query: {
-          'client_id': proModel!.data![0].id,
-          'client_name': proModel!.data![0].name,
-          'client_phone': proModel!.data![0].mobile,
-          'new_address': proModel!.data![0].address,
-          'payment_method': 'cash',
-          'status': '0',
-          'check': '1',
-          'Payment_Date': '132135',
-          'product_ids[0]': idPro,
-          'product_ids[1]': idProduct0,
-        }).then((value) {
-      emit(AppSuccesCheckOutState());
-    }).catchError((e) {
-      emit(AppErrorCheckOutState());
-    });
+    if (productID.length == 1) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    } else if (productID.length == 2) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+            'product_ids[1]': productID[1],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    } else if (productID.length == 3) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+            'product_ids[1]': productID[1],
+            'product_ids[2]': productID[2],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    } else if (productID.length == 4) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+            'product_ids[1]': productID[1],
+            'product_ids[2]': productID[2],
+            'product_ids[3]': productID[3],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    } else if (productID.length == 5) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+            'product_ids[1]': productID[1],
+            'product_ids[2]': productID[2],
+            'product_ids[3]': productID[3],
+            'product_ids[4]': productID[4],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    } else if (productID.length == 6) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+            'product_ids[1]': productID[1],
+            'product_ids[2]': productID[2],
+            'product_ids[3]': productID[3],
+            'product_ids[4]': productID[4],
+            'product_ids[5]': productID[5],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    } else if (productID.length == 7) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+            'product_ids[1]': productID[1],
+            'product_ids[2]': productID[2],
+            'product_ids[3]': productID[3],
+            'product_ids[4]': productID[4],
+            'product_ids[5]': productID[5],
+            'product_ids[6]': productID[6],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    } else if (productID.length == 8) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+            'product_ids[1]': productID[1],
+            'product_ids[2]': productID[2],
+            'product_ids[3]': productID[3],
+            'product_ids[4]': productID[4],
+            'product_ids[5]': productID[5],
+            'product_ids[6]': productID[6],
+            'product_ids[7]': productID[7],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    } else if (productID.length == 9) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+            'product_ids[1]': productID[1],
+            'product_ids[2]': productID[2],
+            'product_ids[3]': productID[3],
+            'product_ids[4]': productID[4],
+            'product_ids[5]': productID[5],
+            'product_ids[6]': productID[6],
+            'product_ids[7]': productID[7],
+            'product_ids[8]': productID[8],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    } else if (productID.length == 10) {
+      DioHelper.postData(
+          url: 'https://care.ssd-co.com/api/cart/add?',
+          token: 'Bearer $token',
+          query: {
+            'client_id': proModel!.data![0].id,
+            'client_name': proModel!.data![0].name,
+            'client_phone': proModel!.data![0].mobile,
+            'new_address': proModel!.data![0].address,
+            'payment_method': 'cash',
+            'status': '0',
+            'check': '1',
+            'Payment_Date': '132135',
+            'product_ids[0]': productID[0],
+            'product_ids[1]': productID[1],
+            'product_ids[2]': productID[2],
+            'product_ids[3]': productID[3],
+            'product_ids[4]': productID[4],
+            'product_ids[5]': productID[5],
+            'product_ids[6]': productID[6],
+            'product_ids[7]': productID[7],
+            'product_ids[8]': productID[8],
+            'product_ids[9]': productID[9],
+          }).then((value) {
+        emit(AppSuccesCheckOutState());
+      }).catchError((e) {
+        emit(AppErrorCheckOutState());
+      });
+    }
   }
 
   EditProfile? editProfile;
@@ -167,7 +372,7 @@ class AppCubit extends Cubit<AppStates> {
               "email": email,
               "address": address,
             },
-            token: 'Bearer $token')
+            token: ' $token')
         .then((value) {
       editProfile = EditProfile.fromJson(value.data);
       getProfile();

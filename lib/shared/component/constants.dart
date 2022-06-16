@@ -7,6 +7,7 @@ double? pricePro, priceProduct0, priceProduct1, priceProduct2, priceProduct3;
 int? b, b0, b1, b2, b3;
 String? token, tokenMer;
 int? currentIndex;
+final productID = <int>[];
 
 final nameController = TextEditingController();
 final phoneController = TextEditingController();

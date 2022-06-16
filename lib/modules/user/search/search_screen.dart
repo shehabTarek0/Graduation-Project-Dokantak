@@ -37,7 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void debounce(
     VoidCallback callback, {
-    Duration duration = const Duration(milliseconds: 100),
+    Duration duration = const Duration(milliseconds: 400),
   }) {
     if (debouncer != null) {
       debouncer!.cancel();
@@ -134,8 +134,8 @@ class _SearchScreenState extends State<SearchScreen> {
               children: [
                 Image(
                   image: NetworkImage("${product.photo}"),
-                  width: 140,
-                  height: 140,
+                  width: 120,
+                  height: 120,
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(

@@ -73,6 +73,8 @@ class AppErrorCheckOutState extends AppStates {}
 
 class AppSuccesSearchProductsState extends AppStates {}
 
+class AppLoadingSearchProductsState extends AppStates {}
+
 class AppErrorSearchProductsState extends AppStates {}
 
 class App extends AppStates {}

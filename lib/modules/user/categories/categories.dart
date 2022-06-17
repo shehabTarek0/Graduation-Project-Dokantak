@@ -48,6 +48,8 @@ class CategoryScreen extends StatelessWidget {
                       'assets/images/accessories-icon-png-12.jpg',
                       'assets/images/accessories-icon-png-12.jpg',
                       'assets/images/accessories-icon-png-12.jpg',
+                      'assets/images/accessories-icon-png-12.jpg',
+                      'assets/images/accessories-icon-png-12.jpg',
                     ];
                     return buildCatItem(
                         context,

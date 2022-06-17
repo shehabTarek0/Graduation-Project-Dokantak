@@ -1,14 +1,10 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/app_layout/app_layout.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/cubit.dart';
-import 'package:g_project/layout/appmarchant_layout/marchant_layout.dart';
 import 'package:g_project/modules/marchant/Login_mer/cubit/cubit.dart';
 import 'package:g_project/modules/onboarding/onboarding_screen.dart';
 import 'package:g_project/modules/splash/splash_screen.dart';
@@ -58,7 +54,6 @@ class MyApp extends StatelessWidget {
     required this.start,
   }) : super(key: key);
   final Widget start;
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -70,7 +65,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => LoginMarCubit()),
-          BlocProvider(create: (context) => MarCubit()),
+          BlocProvider(create: (context) => MarCubit()..getAllProducts()),
         ],
         child: BlocConsumer<AppCubit, AppStates>(
             builder: (context, state) => MaterialApp(

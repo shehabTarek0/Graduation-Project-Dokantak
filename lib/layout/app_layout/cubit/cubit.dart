@@ -112,7 +112,6 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppSuccesGetProfileState());
     }).catchError((e) {
       emit(AppErrorGetProfileState());
-      print(e);
     });
   }
 
@@ -388,7 +387,6 @@ class AppCubit extends Cubit<AppStates> {
     } else {
       List<Dataa> dec = Dataa.decode(getPro!);
       pricePro = double.tryParse(dec[0].price!);
-      idPro = dec[0].id!;
       b = 1;
       return GestureDetector(
         onTap: () {
@@ -480,7 +478,6 @@ class AppCubit extends Cubit<AppStates> {
                                   CacheHelper.removeData(key: 'products');
                                   getPro = null;
                                   pricePro = 0.0;
-                                  idPro = null;
                                   b = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)
@@ -513,7 +510,6 @@ class AppCubit extends Cubit<AppStates> {
     } else {
       List<Dataa> dec0 = Dataa.decode(getProduct0!);
       priceProduct0 = double.tryParse(dec0[0].price!);
-      idProduct0 = dec0[0].id!;
       b0 = 1;
       return GestureDetector(
         onTap: () {
@@ -605,7 +601,6 @@ class AppCubit extends Cubit<AppStates> {
                                   CacheHelper.removeData(key: 'product0');
                                   getProduct0 = null;
                                   priceProduct0 = 0.0;
-                                  idProduct0 = null;
                                   b0 = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)
@@ -637,7 +632,6 @@ class AppCubit extends Cubit<AppStates> {
       return const SizedBox();
     } else {
       List<Dataa> dec1 = Dataa.decode(getProduct1!);
-      idProduct1 = dec1[0].id!;
       priceProduct1 = double.tryParse(dec1[0].price!);
       b1 = 1;
       return GestureDetector(
@@ -730,7 +724,6 @@ class AppCubit extends Cubit<AppStates> {
                                   CacheHelper.removeData(key: 'product1');
                                   getProduct1 = null;
                                   priceProduct1 = 0.0;
-                                  idProduct1 = null;
                                   b1 = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)
@@ -762,7 +755,6 @@ class AppCubit extends Cubit<AppStates> {
       return const SizedBox();
     } else {
       List<Dataa> dec2 = Dataa.decode(getProduct2!);
-      idProduct2 = dec2[0].id!;
       priceProduct2 = double.tryParse(dec2[0].price!);
       b2 = 1;
       return GestureDetector(
@@ -855,7 +847,6 @@ class AppCubit extends Cubit<AppStates> {
                                   CacheHelper.removeData(key: 'product2');
                                   getProduct2 = null;
                                   priceProduct2 = 0.0;
-                                  idProduct2 = null;
                                   b2 = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)
@@ -888,7 +879,6 @@ class AppCubit extends Cubit<AppStates> {
     } else {
       List<Dataa> dec3 = Dataa.decode(getProduct3!);
       priceProduct3 = double.tryParse(dec3[0].price!);
-      idProduct3 = dec3[0].id!;
       b3 = 1;
       return GestureDetector(
         onTap: () {
@@ -980,7 +970,6 @@ class AppCubit extends Cubit<AppStates> {
                                   CacheHelper.removeData(key: 'product3');
                                   getProduct3 = null;
                                   priceProduct3 = 0.0;
-                                  idProduct3 = null;
                                   b3 = 0;
                                   emit(AppLoadingCartsState());
                                   AppCubit.get(context)

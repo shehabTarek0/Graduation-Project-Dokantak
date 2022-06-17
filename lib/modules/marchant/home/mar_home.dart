@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:g_project/layout/appmarchant_layout/cubit/cubit.dart';
+import 'package:g_project/layout/appmarchant_layout/cubit/states.dart';
+import 'package:g_project/models/merchant/all_products_model.dart';
 import 'package:g_project/modules/marchant/add_product/add_product.dart';
 import 'package:g_project/shared/component/component.dart';
 
@@ -7,38 +11,59 @@ class MarHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 2,
-        centerTitle: true,
-        title: const Text(
-          'My Products',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            letterSpacing: 2.5,
-          ),
-        ),
-      ),
-      body: buildPro(),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            navigateTo(context, const AddProduct());
-          },
-          child: const Icon(Icons.add)),
-    );
+    return BlocConsumer<MarCubit, MarStates>(
+        builder: ((context, state) {
+          if (MarCubit.get(context).allProducts != null) {
+            return Scaffold(
+              appBar: AppBar(
+                elevation: 2,
+                centerTitle: true,
+                title: const Text(
+                  'My Products',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 2.5,
+                  ),
+                ),
+              ),
+              body: buildPro(MarCubit.get(context).allProducts!),
+              floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    navigateTo(context, const AddProduct());
+                  },
+                  child: const Icon(Icons.add)),
+            );
+          } else {
+            return Scaffold(
+                appBar: AppBar(
+                  elevation: 2,
+                  title: const Text(
+                    'DOKANTAK',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 2.5,
+                    ),
+                  ),
+                ),
+                body: const Center(child: CircularProgressIndicator()));
+          }
+        }),
+        listener: (context, state) {});
   }
 
-  Widget buildPro() {
+  Widget buildPro(AllProductsModel allProducts) {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
-      itemCount: 3,
+      itemCount: allProducts.data!.length,
       itemBuilder: (BuildContext context, int index) {
-        return buildProItem();
+        return buildProItem(context, allProducts.data![index]);
       },
     );
   }
 
-  Widget buildProItem() {
+  Widget buildProItem(context, Data data) {
     return GestureDetector(
       onTap: () {
 /*           String encodeDataa = Dataa.encode([
@@ -71,8 +96,8 @@ class MarHome extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Image(
-                      image: AssetImage('assets/images/AlluringRug.png'),
+                  Image(
+                      image: NetworkImage(data.photo!),
                       fit: BoxFit.cover,
                       width: 160,
                       height: 160),
@@ -84,7 +109,7 @@ class MarHome extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'basket',
+                          data.productName!,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -96,10 +121,10 @@ class MarHome extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
-                          '100 LE',
+                        Text(
+                          '${data.price} LE',
                           maxLines: 1,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             height: 1.3,
@@ -109,8 +134,8 @@ class MarHome extends StatelessWidget {
                           height: 30,
                         ),
                         Text(
-                          'Seller Name : Shehab',
-                          maxLines: 2,
+                          'Description : ${data.description}',
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: 18,
@@ -130,7 +155,9 @@ class MarHome extends StatelessWidget {
                 children: [
                   defaultButton(
                       // ignore: avoid_returning_null_for_void
-                      function: () => null,
+                      function: () {
+                        MarCubit.get(context).getAllProducts();
+                      },
                       text: 'Edit',
                       style: const TextStyle(fontSize: 18, color: Colors.white),
                       background: const Color.fromARGB(255, 14, 181, 153),

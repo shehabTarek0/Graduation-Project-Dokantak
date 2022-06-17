@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:g_project/models/data.dart';
-import 'package:g_project/shared/component/constants.dart';
 import 'package:http/http.dart' as http;
 
 class ProductApi {

@@ -7,6 +7,10 @@ int? b, b0, b1, b2, b3;
 String? token, tokenMer;
 int? currentIndex;
 final productID = <int>[];
+final productNames = <String>[];
+final productDes = <String>[];
+final productPrices = <String>[];
+final productImages = <String>[];
 
 final nameController = TextEditingController();
 final phoneController = TextEditingController();

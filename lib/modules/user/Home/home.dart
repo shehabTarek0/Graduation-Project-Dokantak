@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
             CarouselSlider(
                 items: [
                   GestureDetector(
-                    onTap: () => {navigateTo(context, CartScreen())},
+                    onTap: () => {navigateTo(context, const CartScreen())},
                     child: const Image(
                       image: AssetImage('assets/images/s1.jpg'),
                       width: double.infinity,
@@ -94,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => navigateTo(context, CartScreen()),
+                    onTap: () => navigateTo(context, const CartScreen()),
                     child: const Image(
                       image: AssetImage('assets/images/s2.jpg'),
                       width: double.infinity,
@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => navigateTo(context, CartScreen()),
+                    onTap: () => navigateTo(context, const CartScreen()),
                     child: const Image(
                       image: AssetImage('assets/images/s3.jpg'),
                       width: double.infinity,
@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => navigateTo(context, CartScreen()),
+                    onTap: () => navigateTo(context, const CartScreen()),
                     child: const Image(
                       image: AssetImage('assets/images/s4.jpg'),
                       width: double.infinity,
@@ -248,7 +248,7 @@ class HomeScreen extends StatelessWidget {
   categoriesBulider(context, Data data, String imag) => GestureDetector(
         onTap: () {
           AppCubit.get(context).getCategoryProducts(data.id!);
-          navigateTo(context, CategoryProducts());
+          navigateTo(context, const CategoryProducts());
         },
         child: Column(
           children: [

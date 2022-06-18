@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors_in_immutables
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
@@ -9,9 +7,8 @@ import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-// ignore: must_be_immutable
 class CartScreen extends StatefulWidget {
-  CartScreen({Key? key}) : super(key: key);
+  const CartScreen({Key? key}) : super(key: key);
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -27,11 +24,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
         builder: (context, state) {
-          if (getPro == null &&
-              getProduct0 == null &&
-              getProduct1 == null &&
-              getProduct2 == null &&
-              getProduct3 == null) {
+          if (AppCubit.get(context).allPrice() == 0.0) {
             return Scaffold(
               appBar: AppBar(
                 elevation: 2,
@@ -87,34 +80,27 @@ class _CartScreenState extends State<CartScreen> {
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    Column(
-                      children: [
-                        AppCubit.get(context).buildCartItem(
-                            context,
-                            AppCubit.get(context)
+                    ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: productID.length,
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          height: 20,
+                        );
+                      },
+                      itemBuilder: (BuildContext context, int index) {
+                        return AppCubit.get(context).cartItem(
+                          context,
+                          productNames,
+                          productPrices,
+                          productImages,
+                          index,
+                          /* AppCubit.get(context)
                                 .categoryProductsModel!
-                                .data![0]),
-                        AppCubit.get(context).buildCartItem0(
-                            context,
-                            AppCubit.get(context)
-                                .categoryProductsModel!
-                                .data![0]),
-                        AppCubit.get(context).buildCartItem1(
-                            context,
-                            AppCubit.get(context)
-                                .categoryProductsModel!
-                                .data![0]),
-                        AppCubit.get(context).buildCartItem2(
-                            context,
-                            AppCubit.get(context)
-                                .categoryProductsModel!
-                                .data![0]),
-                        AppCubit.get(context).buildCartItem3(
-                            context,
-                            AppCubit.get(context)
-                                .categoryProductsModel!
-                                .data![0]),
-                      ],
+                                .data![index] */
+                        );
+                      },
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -126,7 +112,7 @@ class _CartScreenState extends State<CartScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${AppCubit.get(context).total()} Products',
+                                '${productID.length} Products',
                                 style: const TextStyle(
                                     color: Color.fromARGB(255, 0, 0, 0),
                                     fontSize: 20),
@@ -135,7 +121,7 @@ class _CartScreenState extends State<CartScreen> {
                                 height: 10,
                               ),
                               Text(
-                                'Total: ${AppCubit.get(context).totalPrice()} LE',
+                                'Total: ${AppCubit.get(context).allPrice()} LE',
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),

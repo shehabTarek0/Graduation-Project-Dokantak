@@ -125,7 +125,7 @@ class ProductDetails extends StatelessWidget {
                             ),
                             child: IconButton(
                                 onPressed: () {
-                                  navigateTo(context, CartScreen());
+                                  navigateTo(context, const CartScreen());
                                 },
                                 icon: const Icon(
                                   Icons.favorite_outline,

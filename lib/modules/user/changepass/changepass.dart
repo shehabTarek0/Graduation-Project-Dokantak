@@ -81,7 +81,7 @@ class ChangePass extends StatelessWidget {
                       if (formKey.currentState!.validate()) {
                         if (newPassController.text ==
                             verifyNewPassController.text) {
-                          navigateTo(context, CartScreen());
+                          navigateTo(context, const CartScreen());
                         }
                       }
                     },

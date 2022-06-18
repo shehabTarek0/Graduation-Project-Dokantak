@@ -86,7 +86,7 @@ class CategoryScreen extends StatelessWidget {
       GestureDetector(
         onTap: () {
           AppCubit.get(context).getCategoryProducts(data.id!);
-          navigateTo(context, CategoryProducts());
+          navigateTo(context, const CategoryProducts());
         },
         child: Container(
           decoration: BoxDecoration(

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/user/category_model.dart';
 import 'package:g_project/models/user/change_favourites_model.dart';
 import 'package:g_project/models/user/checkout_model.dart';
-import 'package:g_project/models/data.dart';
 import 'package:g_project/models/user/edit_profile_model.dart';
 import 'package:g_project/models/user/products_model.dart';
 import 'package:g_project/models/user/profile_model.dart';
@@ -13,13 +12,8 @@ import 'package:g_project/modules/user/Cart/cart.dart';
 import 'package:g_project/modules/user/Home/home.dart';
 import 'package:g_project/modules/user/categories/categories.dart';
 import 'package:g_project/modules/user/more_screen/more.dart';
-import 'package:g_project/modules/user/product_details/product_details.dart';
-import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
-import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
-import 'package:hexcolor/hexcolor.dart';
-
 import '../../../models/user/favourite_model.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -30,7 +24,7 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> bottomScreen = [
     const HomeScreen(),
     const CategoryScreen(),
-    CartScreen(),
+    const CartScreen(),
     const MoreScreen()
   ];
 
@@ -381,148 +375,27 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  Widget buildCartItem(context, Dataa data) {
-    if (getPro == null) {
-      return const SizedBox();
-    } else {
-      List<Dataa> dec = Dataa.decode(getPro!);
-      pricePro = double.tryParse(dec[0].price!);
-      b = 1;
-      return GestureDetector(
-        onTap: () {
-          String encodeDataa = Dataa.encode([
-            Dataa(
-                id: data.id,
-                photo: data.photo,
-                price: data.price,
-                productName: data.productName)
-          ]);
-          CacheHelper.saveData(key: 'productCard', value: encodeDataa);
-          navigateTo(context, ProductDetails(Dataa));
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.35),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15, bottom: 10, right: 10),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image(
-                        image: NetworkImage(dec[0].photo!),
-                        fit: BoxFit.cover,
-                        width: 120,
-                        height: 120),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${dec[0].productName}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                height: 1.6,
-                                color: Colors.grey[800]),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Total ',
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                        height: 1.3,
-                                        color: Colors.grey[600]),
-                                  ),
-                                  Text(
-                                    '${dec[0].price} LE',
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      height: 1.3,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 7,
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  CacheHelper.removeData(key: 'products');
-                                  getPro = null;
-                                  pricePro = 0.0;
-                                  b = 0;
-                                  emit(AppLoadingCartsState());
-                                  AppCubit.get(context)
-                                      .buildCartItem(context, data);
-                                },
-                                icon: const Icon(FontAwesome5.trash),
-                                color: HexColor('ED1B36'),
-                              ),
-                              const SizedBox(
-                                width: 25,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+  double allPrice() {
+    double all = 0.0;
+    for (var i = 0; i < productPrices.length; i++) {
+      all += double.tryParse(productPrices[i])!;
     }
+    return all;
   }
 
-  Widget buildCartItem0(context, Dataa data) {
-    if (getProduct0 == null) {
+  Widget cartItem(
+    context,
+    List<String> productNames,
+    List<String> productPrices,
+    List<String> productImages,
+    int index,
+    /* Dataa data */
+  ) {
+    if (productNames == <String>[]) {
       return const SizedBox();
     } else {
-      List<Dataa> dec0 = Dataa.decode(getProduct0!);
-      priceProduct0 = double.tryParse(dec0[0].price!);
-      b0 = 1;
       return GestureDetector(
-        onTap: () {
-          String encodeDataa = Dataa.encode([
-            Dataa(
-                id: data.id,
-                photo: data.photo,
-                price: data.price,
-                productName: data.productName)
-          ]);
-          CacheHelper.saveData(key: 'productCard', value: encodeDataa);
-          navigateTo(context, ProductDetails(Dataa));
-        },
+        onTap: () {},
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
@@ -544,7 +417,7 @@ class AppCubit extends Cubit<AppStates> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image(
-                        image: NetworkImage(dec0[0].photo!),
+                        image: NetworkImage(productImages[index]),
                         fit: BoxFit.cover,
                         width: 120,
                         height: 120),
@@ -556,7 +429,7 @@ class AppCubit extends Cubit<AppStates> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${dec0[0].productName}',
+                            productNames[index],
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -566,14 +439,14 @@ class AppCubit extends Cubit<AppStates> {
                                 color: Colors.grey[800]),
                           ),
                           const SizedBox(
-                            height: 30,
+                            height: 20,
                           ),
                           Row(
                             children: [
                               Row(
                                 children: [
                                   Text(
-                                    'Total ',
+                                    'Total: ',
                                     maxLines: 1,
                                     style: TextStyle(
                                         fontSize: 17,
@@ -582,7 +455,7 @@ class AppCubit extends Cubit<AppStates> {
                                         color: Colors.grey[600]),
                                   ),
                                   Text(
-                                    '${dec0[0].price} LE',
+                                    '${productPrices[index]} LE',
                                     maxLines: 1,
                                     style: const TextStyle(
                                       fontSize: 17,
@@ -596,390 +469,25 @@ class AppCubit extends Cubit<AppStates> {
                                 ],
                               ),
                               const Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  CacheHelper.removeData(key: 'product0');
-                                  getProduct0 = null;
-                                  priceProduct0 = 0.0;
-                                  b0 = 0;
-                                  emit(AppLoadingCartsState());
-                                  AppCubit.get(context)
-                                      .buildCartItem0(context, data);
-                                },
-                                icon: const Icon(FontAwesome5.trash),
-                                color: HexColor('ED1B36'),
-                              ),
-                              const SizedBox(
-                                width: 25,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-  }
-
-  Widget buildCartItem1(context, Dataa data) {
-    if (getProduct1 == null) {
-      return const SizedBox();
-    } else {
-      List<Dataa> dec1 = Dataa.decode(getProduct1!);
-      priceProduct1 = double.tryParse(dec1[0].price!);
-      b1 = 1;
-      return GestureDetector(
-        onTap: () {
-          String encodeDataa = Dataa.encode([
-            Dataa(
-                id: data.id,
-                photo: data.photo,
-                price: data.price,
-                productName: data.productName)
-          ]);
-          CacheHelper.saveData(key: 'productCard', value: encodeDataa);
-          navigateTo(context, ProductDetails(Dataa));
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.35),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15, bottom: 10, right: 10),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image(
-                        image: NetworkImage(dec1[0].photo!),
-                        fit: BoxFit.cover,
-                        width: 120,
-                        height: 120),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${dec1[0].productName}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                height: 1.6,
-                                color: Colors.grey[800]),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Total ',
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                        height: 1.3,
-                                        color: Colors.grey[600]),
-                                  ),
-                                  Text(
-                                    '${dec1[0].price} LE',
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      height: 1.3,
+                              CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor:
+                                      const Color.fromARGB(209, 238, 238, 238),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      productNames.removeAt(index);
+                                      productImages.removeAt(index);
+                                      productPrices.removeAt(index);
+                                      productID.removeAt(index);
+                                      emit(AppSuccesCartsState());
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/icons/Trash.svg',
+                                      width: 24,
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    width: 7,
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  CacheHelper.removeData(key: 'product1');
-                                  getProduct1 = null;
-                                  priceProduct1 = 0.0;
-                                  b1 = 0;
-                                  emit(AppLoadingCartsState());
-                                  AppCubit.get(context)
-                                      .buildCartItem1(context, data);
-                                },
-                                icon: const Icon(FontAwesome5.trash),
-                                color: HexColor('ED1B36'),
-                              ),
+                                  )),
                               const SizedBox(
-                                width: 25,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-  }
-
-  Widget buildCartItem2(context, Dataa data) {
-    if (getProduct2 == null) {
-      return const SizedBox();
-    } else {
-      List<Dataa> dec2 = Dataa.decode(getProduct2!);
-      priceProduct2 = double.tryParse(dec2[0].price!);
-      b2 = 1;
-      return GestureDetector(
-        onTap: () {
-          String encodeDataa = Dataa.encode([
-            Dataa(
-                id: data.id,
-                photo: data.photo,
-                price: data.price,
-                productName: data.productName)
-          ]);
-          CacheHelper.saveData(key: 'productCard', value: encodeDataa);
-          navigateTo(context, ProductDetails(Dataa));
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.35),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15, bottom: 10, right: 10),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image(
-                        image: NetworkImage(dec2[0].photo!),
-                        fit: BoxFit.cover,
-                        width: 120,
-                        height: 120),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${dec2[0].productName}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                height: 1.6,
-                                color: Colors.grey[800]),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Total ',
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                        height: 1.3,
-                                        color: Colors.grey[600]),
-                                  ),
-                                  Text(
-                                    '${dec2[0].price} LE',
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      height: 1.3,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 7,
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  CacheHelper.removeData(key: 'product2');
-                                  getProduct2 = null;
-                                  priceProduct2 = 0.0;
-                                  b2 = 0;
-                                  emit(AppLoadingCartsState());
-                                  AppCubit.get(context)
-                                      .buildCartItem2(context, data);
-                                },
-                                icon: const Icon(FontAwesome5.trash),
-                                color: HexColor('ED1B36'),
-                              ),
-                              const SizedBox(
-                                width: 25,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-  }
-
-  Widget buildCartItem3(context, Dataa data) {
-    if (getProduct3 == null) {
-      return const SizedBox();
-    } else {
-      List<Dataa> dec3 = Dataa.decode(getProduct3!);
-      priceProduct3 = double.tryParse(dec3[0].price!);
-      b3 = 1;
-      return GestureDetector(
-        onTap: () {
-          String encodeDataa = Dataa.encode([
-            Dataa(
-                id: data.id,
-                photo: data.photo,
-                price: data.price,
-                productName: data.productName)
-          ]);
-          CacheHelper.saveData(key: 'productCard', value: encodeDataa);
-          navigateTo(context, ProductDetails(Dataa));
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.35),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15, bottom: 10, right: 10),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image(
-                        image: NetworkImage(dec3[0].photo!),
-                        fit: BoxFit.cover,
-                        width: 120,
-                        height: 120),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${dec3[0].productName}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                height: 1.6,
-                                color: Colors.grey[800]),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Total ',
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                        height: 1.3,
-                                        color: Colors.grey[600]),
-                                  ),
-                                  Text(
-                                    '${dec3[0].price} LE',
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      height: 1.3,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 7,
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  CacheHelper.removeData(key: 'product3');
-                                  getProduct3 = null;
-                                  priceProduct3 = 0.0;
-                                  b3 = 0;
-                                  emit(AppLoadingCartsState());
-                                  AppCubit.get(context)
-                                      .buildCartItem3(context, data);
-                                },
-                                icon: const Icon(FontAwesome5.trash),
-                                color: HexColor('ED1B36'),
-                              ),
-                              const SizedBox(
-                                width: 25,
+                                width: 15,
                               ),
                             ],
                           )

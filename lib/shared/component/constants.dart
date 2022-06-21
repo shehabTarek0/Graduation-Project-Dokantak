@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 int? id;
+File? imageProduct;
 String? getPro, getProduct0, getProduct1, getProduct2, getProduct3;
 double? pricePro, priceProduct0, priceProduct1, priceProduct2, priceProduct3;
 int? b, b0, b1, b2, b3;

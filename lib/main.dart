@@ -65,7 +65,10 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => LoginMarCubit()),
-          BlocProvider(create: (context) => MarCubit()..getAllProducts()),
+          BlocProvider(
+              create: (context) => MarCubit()
+                ..getAllProducts()
+                ..getMerCategory()),
         ],
         child: BlocConsumer<AppCubit, AppStates>(
             builder: (context, state) => MaterialApp(

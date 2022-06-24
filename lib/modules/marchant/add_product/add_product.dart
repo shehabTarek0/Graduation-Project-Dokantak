@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/cubit.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/states.dart';
 import 'package:g_project/layout/appmarchant_layout/marchant_layout.dart';
-import 'package:g_project/modules/marchant/home/mar_home.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
@@ -124,7 +123,7 @@ class AddProduct extends StatelessWidget {
                             child: TextField(
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
-                                hintText: imageProduct?.path,
+                                hintText: imageProduct?.path.split('/').last,
                               ),
                               enabled: false,
                             ),

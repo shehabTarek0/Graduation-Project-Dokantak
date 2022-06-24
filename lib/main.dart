@@ -5,6 +5,7 @@ import 'package:g_project/layout/app_layout/app_layout.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/cubit.dart';
+import 'package:g_project/layout/appmarchant_layout/marchant_layout.dart';
 import 'package:g_project/modules/marchant/Login_mer/cubit/cubit.dart';
 import 'package:g_project/modules/onboarding/onboarding_screen.dart';
 import 'package:g_project/modules/splash/splash_screen.dart';
@@ -29,10 +30,9 @@ void main() async {
   if (onBoarding != null) {
     if (token != null) {
       widget = const AppLayout();
-    } /* else if (tokenMer != null) {
+    } else if (tokenMer != null) {
       widget = const MarLayout();
-    }  */
-    else {
+    } else {
       widget = const StartScreen();
     }
   } else {
@@ -68,7 +68,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => MarCubit()
                 ..getAllProducts()
-                ..getMerCategory()),
+                ..getMerCategory()
+                ..getOrders()),
         ],
         child: BlocConsumer<AppCubit, AppStates>(
             builder: (context, state) => MaterialApp(

@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/states.dart';
 import 'package:g_project/models/merchant/all_products_model.dart';
 import 'package:g_project/models/merchant/get_category_model.dart';
+import 'package:g_project/models/merchant/orders_model.dart';
 import 'package:g_project/modules/marchant/home/mar_home.dart';
 import 'package:g_project/modules/marchant/more/more_mar.dart';
+import 'package:g_project/modules/marchant/orders/orders.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
@@ -17,7 +19,11 @@ class MarCubit extends Cubit<MarStates> {
   static MarCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
-  List<Widget> bottomScreen = [const MarHome(), const MarMore()];
+  List<Widget> bottomScreen = [
+    const MarHome(),
+    const OrdersScreen(),
+    const MarMore()
+  ];
 
   void changeBottom(int index) {
     currentIndex = index;
@@ -49,6 +55,19 @@ class MarCubit extends Cubit<MarStates> {
       emit(MarSuccesAllCategoryState());
     }).catchError((e) {
       emit(MarErrorAllCategoryState());
+    });
+  }
+
+  OrdersModel? orderModel;
+  void getOrders() {
+    emit(MarLoadingAllOrdersState());
+    DioHelper.getData(
+            url: 'https://care.ssd-co.com/api/admin/orders', token: tokenMer)
+        .then((value) {
+      orderModel = OrdersModel.fromJson(value.data);
+      emit(MarSuccesAllOrdersState());
+    }).catchError((e) {
+      emit(MarErrorAllOrdersState());
     });
   }
 

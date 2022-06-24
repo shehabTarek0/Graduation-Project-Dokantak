@@ -38,7 +38,7 @@ class MarHome extends StatelessWidget {
                 appBar: AppBar(
                   elevation: 2,
                   title: const Text(
-                    'DOKANTAK',
+                    'My Products',
                     style: TextStyle(
                       fontSize: 28,
                       fontStyle: FontStyle.italic,

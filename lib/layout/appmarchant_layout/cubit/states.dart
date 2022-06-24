@@ -10,6 +10,12 @@ class MarSuccesAllProductsState extends MarStates {}
 
 class MarErrorAllProductsState extends MarStates {}
 
+class MarLoadingAllOrdersState extends MarStates {}
+
+class MarSuccesAllOrdersState extends MarStates {}
+
+class MarErrorAllOrdersState extends MarStates {}
+
 class MarSuccesAddPhotoProductsState extends MarStates {}
 
 class MarErrorAddPhotoProductsState extends MarStates {}

@@ -4,7 +4,9 @@ import 'package:g_project/layout/appmarchant_layout/cubit/cubit.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/states.dart';
 import 'package:g_project/models/merchant/all_products_model.dart';
 import 'package:g_project/modules/marchant/add_product/add_product.dart';
+import 'package:g_project/modules/marchant/edit_product/edit_product.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/component/constants.dart';
 
 class MarHome extends StatelessWidget {
   const MarHome({Key? key}) : super(key: key);
@@ -29,6 +31,11 @@ class MarHome extends StatelessWidget {
               body: buildPro(MarCubit.get(context).allProducts!),
               floatingActionButton: FloatingActionButton(
                   onPressed: () {
+                    productNameController.text = '';
+                    productPriceController.text = '';
+                    productDesController.text = '';
+                    idc = '';
+                    imageProduct = null;
                     navigateTo(context, const AddProduct());
                   },
                   child: const Icon(Icons.add)),
@@ -156,22 +163,30 @@ class MarHome extends StatelessWidget {
                   defaultButton(
                       // ignore: avoid_returning_null_for_void
                       function: () {
-                        MarCubit.get(context).getAllProducts();
+                        productNameController.text = data.productName!;
+                        productPriceController.text = data.price!;
+                        productDesController.text = data.description!;
+                        idc = '${data.categoryId!}';
+                        navigateTo(context, EditProduct(data.id!));
                       },
                       text: 'Edit',
                       style: const TextStyle(fontSize: 18, color: Colors.white),
                       background: const Color.fromARGB(255, 14, 181, 153),
-                      width: 160,
+                      width: 180,
                       height: 50,
                       radius: 7),
                   const Spacer(),
                   defaultButton(
                       // ignore: avoid_returning_null_for_void
-                      function: () => null,
+                      function: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => alert(context, data.id));
+                      },
                       text: 'Delete',
                       background: const Color.fromARGB(255, 209, 0, 0),
                       style: const TextStyle(fontSize: 18, color: Colors.white),
-                      width: 160,
+                      width: 180,
                       height: 50,
                       radius: 7),
                 ],
@@ -181,5 +196,31 @@ class MarHome extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget alert(
+    context,
+    int? id,
+  ) {
+    {
+      return AlertDialog(
+        title: const Text('Delete Product'),
+        content: const Text('Do You Want To Delete Product'),
+        actions: [
+          defaultTextButton(
+              text: 'yes',
+              onPress: () {
+                MarCubit.get(context).deleteProduct(id!);
+                MarCubit.get(context).getAllProducts();
+                Navigator.pop(context);
+              }),
+          defaultTextButton(
+              text: 'No',
+              onPress: () {
+                Navigator.pop(context);
+              })
+        ],
+      );
+    }
   }
 }

@@ -25,3 +25,11 @@ class MarLoadingAllCategoryState extends MarStates {}
 class MarSuccesAllCategoryState extends MarStates {}
 
 class MarErrorAllCategoryState extends MarStates {}
+
+class MarSuccesDeleteProductState extends MarStates {}
+
+class MarErrorDeleteProductState extends MarStates {}
+
+class MarSuccesEditProductState extends MarStates {}
+
+class MarErrorEditProductState extends MarStates {}

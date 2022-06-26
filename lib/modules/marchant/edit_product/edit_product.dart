@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/cubit.dart';
@@ -6,18 +5,16 @@ import 'package:g_project/layout/appmarchant_layout/cubit/states.dart';
 import 'package:g_project/layout/appmarchant_layout/marchant_layout.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
-import 'package:g_project/shared/network/remote/dio_helper/dio_helper.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 
-class AddProduct extends StatelessWidget {
-  const AddProduct({Key? key}) : super(key: key);
+class EditProduct extends StatelessWidget {
+  const EditProduct(int i, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     List<dynamic> categories =
         MarCubit.get(context).category!.toJson().entries.elementAt(1).value;
-
     return BlocConsumer<MarCubit, MarStates>(
         builder: (context, state) {
           return Scaffold(
@@ -25,7 +22,7 @@ class AddProduct extends StatelessWidget {
               elevation: 2,
               centerTitle: true,
               title: const Text(
-                'Add Products',
+                'Edit Products',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   letterSpacing: 2.5,
@@ -97,68 +94,20 @@ class AddProduct extends StatelessWidget {
                           borderFocusColor: Colors.grey,
                           textColor: Colors.black),
                       const SizedBox(height: 30),
-                      Row(
-                        children: [
-                          defaultButton(
-                              function: () {
-                                MarCubit.get(context).getImage();
-                              },
-                              text: 'Choose photo',
-                              height: 60,
-                              width: 170,
-                              isUpperCase: false,
-                              background: Colors.grey[400],
-                              style: const TextStyle(
-                                  color: Colors.black87, fontSize: 20)),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          SizedBox(
-                            height: 50,
-                            width: 180,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                hintText: imageProduct?.path.split('/').last,
-                              ),
-                              enabled: false,
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 30),
                       defaultButton(
                           function: () async {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              DioHelper().uploadImage(
-                                  url:
-                                      'https://care.ssd-co.com/api/admin/product',
-                                  file: imageProduct!,
-                                  data: {
-                                    'Product_name': productNameController.text,
-                                    'description': productDesController.text,
-                                    'photo': await MultipartFile.fromFile(
-                                        imageProduct!.path,
-                                        filename:
-                                            imageProduct!.path.split('/').last),
-                                    'price': productPriceController.text,
-                                    'category_id': idc
-                                  }).then((value) {
-                                flutterToast(
-                                    text: 'Product Upload Successfully',
-                                    state: ToastStates.S);
-                                MarCubit.get(context).getAllProducts();
-                                productNameController.text = '';
-                                productDesController.text = '';
-                                imageProduct = null;
-                                productPriceController.text = '';
-                                idc = null;
-                                navigateAndFinish(context, const MarLayout());
-                              });
+                              MarCubit.get(context).editProduct(
+                                  id: 97,
+                                  productN: productNameController.text,
+                                  productD: productDesController.text,
+                                  productP: productPriceController.text,
+                                  catId: idc!);
+                              navigateAndFinish(context, const MarLayout());
                             }
                           },
-                          text: 'Add Product',
+                          text: 'Edit Product',
                           isUpperCase: false,
                           background: const Color.fromARGB(255, 86, 127, 113),
                           style: const TextStyle(

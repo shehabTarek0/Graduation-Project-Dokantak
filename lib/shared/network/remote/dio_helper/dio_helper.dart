@@ -60,13 +60,42 @@ class DioHelper {
     dio.options.headers = {
       'lang': lang,
       'Content-Type': c,
-      'Authorization': token
+      'Authorization': 'Bearer $token'
     };
 
     return dio.post(
       url,
       queryParameters: query,
       data: data,
+    );
+  }
+
+  static Future<Response> putData(
+      {required String url,
+      Map<String, dynamic>? data,
+      Map<String, dynamic>? query,
+      String lang = 'en',
+      String c = 'application/json',
+      String? token}) async {
+    dio.options.headers = {
+      'lang': lang,
+      'Content-Type': c,
+      'Authorization': 'Bearer $token'
+    };
+
+    return dio.put(
+      url,
+      queryParameters: query,
+      data: data,
+    );
+  }
+
+  static Future<Response> deleteData(
+      {required String url, String? token}) async {
+    dio.options.headers = {'Authorization': 'Bearer $token'};
+
+    return dio.delete(
+      url,
     );
   }
 }

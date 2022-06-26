@@ -115,7 +115,7 @@ class AppCubit extends Cubit<AppStates> {
     if (productID.length == 1) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,
@@ -134,7 +134,7 @@ class AppCubit extends Cubit<AppStates> {
     } else if (productID.length == 2) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,
@@ -154,7 +154,7 @@ class AppCubit extends Cubit<AppStates> {
     } else if (productID.length == 3) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,
@@ -175,7 +175,7 @@ class AppCubit extends Cubit<AppStates> {
     } else if (productID.length == 4) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,
@@ -197,7 +197,7 @@ class AppCubit extends Cubit<AppStates> {
     } else if (productID.length == 5) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,
@@ -220,7 +220,7 @@ class AppCubit extends Cubit<AppStates> {
     } else if (productID.length == 6) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,
@@ -244,7 +244,7 @@ class AppCubit extends Cubit<AppStates> {
     } else if (productID.length == 7) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,
@@ -269,7 +269,7 @@ class AppCubit extends Cubit<AppStates> {
     } else if (productID.length == 8) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,
@@ -295,7 +295,7 @@ class AppCubit extends Cubit<AppStates> {
     } else if (productID.length == 9) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,
@@ -322,7 +322,7 @@ class AppCubit extends Cubit<AppStates> {
     } else if (productID.length == 10) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
-          token: 'Bearer $token',
+          token: token,
           query: {
             'client_id': proModel!.data![0].id,
             'client_name': proModel!.data![0].name,

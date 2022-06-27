@@ -75,6 +75,10 @@ class AppErrorCheckOutState extends AppStates {}
 
 class AppSuccesSearchProductsState extends AppStates {}
 
+class AppErrorDeleteFavState extends AppStates {}
+
+class AppSuccesDeleteFavState extends AppStates {}
+
 class AppLoadingSearchProductsState extends AppStates {}
 
 class AppErrorSearchProductsState extends AppStates {}

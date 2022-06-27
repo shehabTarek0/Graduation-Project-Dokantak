@@ -95,6 +95,17 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  void deleteFav() {
+    DioHelper.deleteData(
+            url: 'https://care.ssd-co.com/api/client/wishlist', token: token)
+        .then((value) {
+      getFavourites();
+      emit(AppSuccesDeleteFavState());
+    }).catchError((e) {
+      emit(AppErrorDeleteFavState());
+    });
+  }
+
   ProfileModel? proModel;
 
   void getProfile() async {

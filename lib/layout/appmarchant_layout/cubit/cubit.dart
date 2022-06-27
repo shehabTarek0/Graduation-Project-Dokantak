@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/states.dart';
 import 'package:g_project/models/merchant/all_products_model.dart';
 import 'package:g_project/models/merchant/delete_product_model.dart';
+import 'package:g_project/models/merchant/edit_product_model.dart';
 import 'package:g_project/models/merchant/get_category_model.dart';
 import 'package:g_project/models/merchant/orders_model.dart';
 import 'package:g_project/modules/marchant/home/mar_home.dart';
@@ -34,7 +35,7 @@ class MarCubit extends Cubit<MarStates> {
   AllProductsModel? allProducts;
 
   void getAllProducts() async {
-    emit(MarLoadingAllProductsState());
+    // emit(MarLoadingAllProductsState());
     await DioHelper.getData(
             url: 'https://care.ssd-co.com/api/admin/product', token: tokenMer)
         .then((value) {
@@ -86,8 +87,10 @@ class MarCubit extends Cubit<MarStates> {
     });
   }
 
+  EditProductModel? editProductModel;
+
   void editProduct(
-      {required int? id,
+      {required int id,
       required String productN,
       required String productD,
       required String productP,
@@ -101,7 +104,8 @@ class MarCubit extends Cubit<MarStates> {
           "price": productP,
           "category_id": catId
         }).then((value) {
-      deleteProductt = DeleteProductModel.fromJson(value.data);
+      editProductModel = EditProductModel.fromJson(value.data);
+      getAllProducts();
       emit(MarSuccesEditProductState());
     }).catchError((e) {
       emit(MarErrorEditProductState());

@@ -167,7 +167,8 @@ class MarHome extends StatelessWidget {
                         productPriceController.text = data.price!;
                         productDesController.text = data.description!;
                         idc = '${data.categoryId!}';
-                        navigateTo(context, EditProduct(data.id!));
+                        idPro = data.id!;
+                        navigateTo(context, const EditProduct());
                       },
                       text: 'Edit',
                       style: const TextStyle(fontSize: 18, color: Colors.white),

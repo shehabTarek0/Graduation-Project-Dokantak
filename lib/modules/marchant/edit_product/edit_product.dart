@@ -8,7 +8,7 @@ import 'package:g_project/shared/component/constants.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 
 class EditProduct extends StatelessWidget {
-  const EditProduct(int i, {Key? key}) : super(key: key);
+  const EditProduct({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,13 +99,17 @@ class EditProduct extends StatelessWidget {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
                               MarCubit.get(context).editProduct(
-                                  id: 97,
+                                  id: idPro!,
                                   productN: productNameController.text,
                                   productD: productDesController.text,
                                   productP: productPriceController.text,
                                   catId: idc!);
-                              navigateAndFinish(context, const MarLayout());
+                              MarCubit.get(context).getAllProducts();
                             }
+                            flutterToast(
+                                text: 'Product modified successfully',
+                                state: ToastStates.S);
+                            navigateAndFinish(context, const MarLayout());
                           },
                           text: 'Edit Product',
                           isUpperCase: false,

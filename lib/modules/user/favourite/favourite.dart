@@ -8,6 +8,7 @@ import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/data.dart';
 import 'package:g_project/modules/user/product_details/product_details.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -21,7 +22,7 @@ class FavouriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
         builder: (context, state) {
-          if (AppCubit.get(context).favModel != null &&
+          if (AppCubit.get(context).favModel!.data!.isNotEmpty &&
               AppCubit.get(context).categoryProductsModel != null) {
             return Scaffold(
               appBar: AppBar(
@@ -35,7 +36,45 @@ class FavouriteScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              body: buildFav(context, AppCubit.get(context).favModel!),
+              body: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    buildFav(context, AppCubit.get(context).favModel!),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
+                      child: defaultButton(
+                          function: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('Delete Product'),
+                                    content: const Text(
+                                        'Do You Want To Delete wishlist'),
+                                    actions: [
+                                      defaultTextButton(
+                                          text: 'yes',
+                                          onPress: () {
+                                            AppCubit.get(context).deleteFav();
+                                            Navigator.pop(context);
+                                          }),
+                                      defaultTextButton(
+                                          text: 'No',
+                                          onPress: () {
+                                            Navigator.pop(context);
+                                          })
+                                    ],
+                                  );
+                                });
+                          },
+                          text: 'delete all',
+                          background: Colors.red),
+                    )
+                  ],
+                ),
+              ),
             );
           } else {
             return Scaffold(
@@ -71,7 +110,7 @@ class FavouriteScreen extends StatelessWidget {
                         'No Products in Favourite',
                         style: TextStyle(fontSize: 25, color: Colors.grey[400]),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -81,19 +120,26 @@ class FavouriteScreen extends StatelessWidget {
         listener: (context, state) {});
   }
 
-  Widget buildFav(context, FavouritesModel favouritesModel) =>
-      ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        itemCount: favouritesModel.data!.length,
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(
-            height: 0,
-          );
-        },
-        itemBuilder: (BuildContext context, int index) {
-          return buildFavItem(context, favouritesModel.data![index],
-              AppCubit.get(context).categoryProductsModel!.data![0]);
-        },
+  Widget buildFav(context, FavouritesModel favouritesModel) => Column(
+        children: [
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: favouritesModel.data!.length,
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: 0,
+              );
+            },
+            itemBuilder: (BuildContext context, int index) {
+              return buildFavItem(context, favouritesModel.data![index],
+                  AppCubit.get(context).categoryProductsModel!.data![0]);
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
       );
 
   Widget buildFavItem(context, Data fmodel, Dataa data) => GestureDetector(
@@ -207,7 +253,12 @@ class FavouriteScreen extends StatelessWidget {
                 ),
                 defaultButton(
                     // ignore: avoid_returning_null_for_void
-                    function: () => null,
+                    function: () {
+                      productID.add(data.id!);
+                      productNames.add(data.productName!);
+                      productPrices.add(data.price!);
+                      productImages.add(data.photo!);
+                    },
                     text: 'ADD TO CART',
                     background: secondColor,
                     width: double.infinity,

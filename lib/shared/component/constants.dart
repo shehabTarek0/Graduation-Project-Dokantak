@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-int? id;
+int? id, idPro;
 File? imageProduct;
 String? getPro, getProduct0, getProduct1, getProduct2, getProduct3;
 double? pricePro, priceProduct0, priceProduct1, priceProduct2, priceProduct3;

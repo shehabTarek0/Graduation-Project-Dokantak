@@ -109,7 +109,6 @@ class MarCubit extends Cubit<MarStates> {
       emit(MarSuccesEditProductState());
     }).catchError((e) {
       emit(MarErrorEditProductState());
-      print(e);
     });
   }
 

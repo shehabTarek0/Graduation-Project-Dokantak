@@ -30,10 +30,9 @@ void main() async {
   if (onBoarding != null) {
     if (token != null) {
       widget = const AppLayout();
-    } /* else if (tokenMer != null) {
+    } else if (tokenMer != null) {
       widget = const MarLayout();
-    } */
-    else {
+    } else {
       widget = const StartScreen();
     }
   } else {

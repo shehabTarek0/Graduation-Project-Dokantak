@@ -49,7 +49,9 @@ class CategoryProducts extends StatelessWidget {
       }
     }, listener: (context, state) {
       if (state is AppSuccesChangeFavouritesState) {
-        flutterToast(text: 'Succes op', state: ToastStates.S);
+        flutterToast(
+            text: 'Product added to favourite successfully',
+            state: ToastStates.S);
       }
     });
   }
@@ -62,7 +64,7 @@ class CategoryProducts extends StatelessWidget {
             GridView.count(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               crossAxisSpacing: 10,
-              childAspectRatio: 1 / 2.19,
+              childAspectRatio: 1 / 2.24,
               crossAxisCount: 2,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -104,7 +106,6 @@ class CategoryProducts extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image(
                   image: NetworkImage("${data.photo}"),
@@ -115,85 +116,62 @@ class CategoryProducts extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 6),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         '${data.productName}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: 21,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
                             height: 1.3,
                             color: Colors.grey[800]),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 17,
                       ),
-                      Row(
-                        children: [
-                          const SizedBox(
-                            width: 13,
-                          ),
-                          Text(
-                            '${data.price} EGY',
-                            // textDirection: TextDirection.rtl,
-                            maxLines: 1,
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                height: 1.3,
-                                color: HexColor('ED1B36')),
-                          ),
-                          const Spacer(),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                                padding: const EdgeInsets.all(10),
-                                width: 64,
-                                decoration: BoxDecoration(
-                                  color: AppCubit.get(context).isFavourite
-                                      ? const Color(0xFFFFE6E6)
-                                      : const Color(0xFFF5F6F9),
-                                  borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      bottomLeft: Radius.circular(20),
-                                      bottomRight: Radius.circular(20)),
-                                ),
-                                child: IconButton(
-                                    onPressed: () {
-                                      AppCubit.get(context).changeF(data.id!);
-                                      AppCubit.get(context)
-                                          .changeFavourites(data.id!);
-                                    },
-                                    icon: const Icon(
-                                      Icons.favorite_outline,
-                                      color: Colors.grey,
-                                      size: 27,
-                                    ))),
-                          ),
-                        ],
+                      Text(
+                        '${data.price} LE',
+                        maxLines: 1,
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          height: 1.3,
+                        ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(
+                  height: 18,
+                ),
+                defaultButton(
+                    function: () {
+                      AppCubit.get(context).changeFavourites(data.id!);
+                    },
+                    text: 'ADD TO Favourite',
+                    background: const Color.fromARGB(234, 231, 22, 7),
+                    width: 170,
+                    height: 40,
+                    radius: 8),
+                const SizedBox(
                   height: 15,
                 ),
-                Center(
-                  child: defaultButton(
-                      function: () {
-                        productID.add(data.id!);
-                        productNames.add(data.productName!);
-                        productPrices.add(data.price!);
-                        productImages.add(data.photo!);
-                      },
-                      text: 'ADD TO CART',
-                      background: HexColor('#7A92A3'),
-                      width: 170,
-                      height: 40,
-                      radius: 8),
-                )
+                defaultButton(
+                    function: () {
+                      productID.add(data.id!);
+                      productNames.add(data.productName!);
+                      productPrices.add(data.price!);
+                      productImages.add(data.photo!);
+                      flutterToast(
+                          text: 'Product added successfully',
+                          state: ToastStates.S);
+                    },
+                    text: 'ADD TO CART',
+                    background: HexColor('#7A92A3'),
+                    width: 170,
+                    height: 40,
+                    radius: 8),
               ],
             ),
           ),

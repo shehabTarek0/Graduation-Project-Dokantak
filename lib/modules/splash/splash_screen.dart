@@ -9,7 +9,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: const Image(
-        image: AssetImage('assets/images/Dokantek22.jpg'),
+        image: AssetImage('assets/images/Dokantak.jpg'),
         fit: BoxFit.cover,
         width: 330,
         height: 330,
@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
       splashTransition: SplashTransition.fadeTransition,
       nextScreen: start,
       duration: 3000,
-      backgroundColor: HexColor('ED1B36'),
+      backgroundColor: HexColor('95A1F1'),
     );
   }
 }

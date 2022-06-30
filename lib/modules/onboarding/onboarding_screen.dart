@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:g_project/modules/start/start.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingModel {
@@ -29,16 +30,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<OnBoardingModel> boarding = [
     OnBoardingModel(
         image: 'assets/images/onboard_1.jpg',
-        title: 'Screen title 1',
-        body: 'Screen body 1'),
+        title: 'Client',
+        body:
+            'In the application, the Client can see a large number of handmade products and buy them in the easiest way'),
     OnBoardingModel(
-        image: 'assets/images/onboard_1.jpg',
-        title: 'Screen title 2',
-        body: 'Screen body 2'),
+        image: 'assets/images/121.webp',
+        title: 'Merchant',
+        body:
+            "The Merchant can upload his product, modify it, delete it, and sell it from home, free of charge, and looks at clients' requests"),
     OnBoardingModel(
-        image: 'assets/images/Main.jpg',
-        title: 'Screen title 3',
-        body: 'Screen body 3')
+        image: 'assets/images/122.webp',
+        title: 'Admins',
+        body:
+            'We simplify the way of delivery between the merchant and the client and look at the requests of clients and the products of merchants and examine them well')
   ];
   void submit() {
     CacheHelper.saveData(key: 'onBoard', value: true).then((value) {
@@ -53,10 +57,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            defaultTextButton(
-                onPress: submit,
-                text: 'Skip',
-                style: const TextStyle(color: Colors.black, fontSize: 18))
+            Padding(
+              padding: const EdgeInsets.only(right: 7),
+              child: defaultTextButton(
+                  onPress: submit,
+                  text: 'Skip',
+                  style: const TextStyle(color: Colors.black, fontSize: 18)),
+            )
           ],
         ),
         body: Padding(
@@ -116,8 +123,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   Widget onBoardingItem(OnBoardingModel model) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // ignore: unnecessary_string_interpolations
         children: [
           Expanded(child: Image(image: AssetImage(model.image))),
           const SizedBox(
@@ -132,7 +137,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
           Text(
             model.body,
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+                height: 1.3),
           ),
           const SizedBox(
             height: 60,

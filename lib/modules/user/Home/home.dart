@@ -6,13 +6,14 @@ import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/user/category_model.dart';
 import 'package:g_project/models/data.dart';
+import 'package:g_project/models/user/products_model.dart';
 import 'package:g_project/modules/user/Cart/cart.dart';
 import 'package:g_project/modules/user/categories/categories.dart';
 import 'package:g_project/modules/user/category_products/category_products.dart';
-import 'package:g_project/modules/user/discounts/discount.dart';
 import 'package:g_project/modules/user/product_details/product_details.dart';
 import 'package:g_project/modules/user/search/search_screen.dart';
 import 'package:g_project/shared/component/component.dart';
+import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -22,31 +23,36 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
         builder: (context, state) {
-          if (AppCubit.get(context).categoryModel != null) {
+          if (AppCubit.get(context).categoryModel != null &&
+              AppCubit.get(context).categoryProductsModelHome != null) {
             return Scaffold(
               appBar: AppBar(
                 elevation: 2,
                 actions: [
-                  IconButton(
-                      onPressed: () =>
-                          navigateTo(context, const SearchScreen()),
-                      icon: const Icon(
-                        FontAwesome5.search,
-                        size: 22,
-                      ))
+                  Padding(
+                    padding: const EdgeInsets.only(right: 7),
+                    child: IconButton(
+                        onPressed: () =>
+                            navigateTo(context, const SearchScreen()),
+                        icon: const Icon(
+                          FontAwesome5.search,
+                          size: 22,
+                        )),
+                  )
                 ],
                 title: const Text(
                   'DOKANTAK',
                   style: TextStyle(
                     fontSize: 28,
-                    fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 2.5,
                   ),
                 ),
               ),
-              body:
-                  prouductBlider(context, AppCubit.get(context).categoryModel!),
+              body: prouductBlider(
+                  context,
+                  AppCubit.get(context).categoryModel!,
+                  AppCubit.get(context).categoryProductsModelHome!),
             );
           } else {
             return Scaffold(
@@ -77,7 +83,8 @@ class HomeScreen extends StatelessWidget {
         listener: (context, state) {});
   }
 
-  Widget prouductBlider(context, CategoryClassModel categoryClassModel) =>
+  Widget prouductBlider(context, CategoryClassModel categoryClassModel,
+          CategoryProductsModel categoryProductsModel) =>
       SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -183,50 +190,10 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  const Text(
-                    'Mounth Discounts',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  const Spacer(),
-                  defaultTextButton(
-                      onPress: () =>
-                          navigateTo(context, const DiscountScreen()),
-                      text: 'View All',
-                      style: TextStyle(color: mainColor, fontSize: 16)),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, bottom: 10),
-              child: SizedBox(
-                height: 250,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: 10,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      width: 10,
-                    );
-                  },
-                  itemBuilder: (BuildContext context, int index) {
-                    return disBuilder(context);
-                  },
-                ),
-              ),
-            ),
             const Padding(
               padding: EdgeInsets.only(left: 10, bottom: 10),
               child: Text(
-                'Proudects',
+                'Products',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
             ),
@@ -234,12 +201,14 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               crossAxisSpacing: 10,
               // mainAxisSpacing: 1,
-              childAspectRatio: 1 / 1.77,
+              childAspectRatio: 1 / 2.24,
               crossAxisCount: 2,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              children:
-                  List.generate(10, (index) => gridProductsBuilder(context)),
+              children: List.generate(
+                  10,
+                  (index) => gridProductsBuilder(
+                      context, categoryProductsModel.data![index])),
             ),
           ],
         ),
@@ -266,75 +235,7 @@ class HomeScreen extends StatelessWidget {
         ),
       );
 
-  disBuilder(context) => GestureDetector(
-        onTap: () => navigateTo(context, ProductDetails(Dataa)),
-        child: SizedBox(
-          width: 130,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Image(
-                image: AssetImage('assets/images/AlluringRug.png'),
-                width: 120,
-                height: 120,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                'Alluring Rug',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    height: 1.3,
-                    color: Colors.grey[600]),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: const [
-                  Text(
-                    '300 LE',
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        height: 1.3,
-                        color: Colors.black),
-                  ),
-                  SizedBox(
-                    width: 17,
-                  ),
-                  Text(
-                    '350 LE',
-                    maxLines: 1,
-                    style: TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        height: 1.3,
-                        color: Colors.black),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              defaultButton(
-                  // ignore: avoid_returning_null_for_void
-                  function: () => null,
-                  text: 'ADD TO CART',
-                  background: HexColor('#7A92A3'),
-                  width: 130,
-                  height: 40,
-                  radius: 8)
-            ],
-          ),
-        ),
-      );
-
-  gridProductsBuilder(context) => GestureDetector(
+  gridProductsBuilder(context, Dataa param1) => GestureDetector(
         onTap: () => navigateTo(context, ProductDetails(Dataa)),
         child: Container(
           margin: const EdgeInsets.only(top: 10, bottom: 7),
@@ -350,56 +251,41 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Image(
-                image: AssetImage('assets/images/AlluringRug.png'),
+              Image(
+                image: NetworkImage(param1.photo!),
                 width: double.infinity,
+                height: 180,
                 fit: BoxFit.cover,
+              ),
+              const SizedBox(
+                height: 16,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Alluring Rug',
-                      maxLines: 2,
+                      param1.productName!,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800,
                           height: 1.3,
                           color: Colors.grey[800]),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: [
-                        const Text(
-                          '350 LE',
-                          maxLines: 1,
-                          style: TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              height: 1.3,
-                              color: Colors.black),
-                        ),
-                        const SizedBox(
-                          width: 17,
-                        ),
-                        Text(
-                          '300 LE',
-                          maxLines: 1,
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              height: 1.3,
-                              color: HexColor('ED1B36')),
-                        ),
-                      ],
+                    Text(
+                      '${param1.price} LE',
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -407,15 +293,33 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              Center(
-                child: defaultButton(
-                    function: () {},
-                    text: 'ADD TO CART',
-                    background: HexColor('#7A92A3'),
-                    width: 170,
-                    height: 40,
-                    radius: 8),
-              )
+              defaultButton(
+                  function: () {
+                    AppCubit.get(context).changeFavourites(param1.id!);
+                  },
+                  text: 'ADD TO Favourite',
+                  background: const Color.fromARGB(234, 231, 22, 7),
+                  width: 170,
+                  height: 40,
+                  radius: 8),
+              const SizedBox(
+                height: 15,
+              ),
+              defaultButton(
+                  function: () {
+                    productID.add(param1.id!);
+                    productNames.add(param1.productName!);
+                    productPrices.add(param1.price!);
+                    productImages.add(param1.photo!);
+                    flutterToast(
+                        text: 'Product added successfully',
+                        state: ToastStates.S);
+                  },
+                  text: 'ADD TO CART',
+                  background: HexColor('#7A92A3'),
+                  width: 170,
+                  height: 40,
+                  radius: 8)
             ],
           ),
         ),

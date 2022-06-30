@@ -101,7 +101,7 @@ void flutterToast({
         msg: text,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 5,
+        timeInSecForIosWeb: 3,
         backgroundColor: chooseColor(state),
         textColor: Colors.white,
         fontSize: 16.0);

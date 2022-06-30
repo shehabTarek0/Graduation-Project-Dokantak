@@ -11,7 +11,6 @@ import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/styles/colors.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 import '../../../models/user/favourite_model.dart';
 
@@ -191,8 +190,8 @@ class FavouriteScreen extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w800,
                                 height: 1.6,
                                 color: Colors.grey[800]),
                           ),
@@ -204,42 +203,14 @@ class FavouriteScreen extends StatelessWidget {
                               Text(
                                 '${fmodel.price}',
                                 maxLines: 1,
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    height: 1.3,
-                                    color: HexColor('ED1B36')),
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1.3,
+                                ),
                               ),
                               const SizedBox(
                                 width: 7,
-                              ),
-                              const Spacer(),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Container(
-                                    padding: const EdgeInsets.all(10),
-                                    width: 64,
-                                    decoration: BoxDecoration(
-                                      color: AppCubit.get(context).isFavourite
-                                          ? const Color(0xFFFFE6E6)
-                                          : const Color(0xFFF5F6F9),
-                                      borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          bottomLeft: Radius.circular(20),
-                                          bottomRight: Radius.circular(20)),
-                                    ),
-                                    child: IconButton(
-                                        onPressed: () {
-                                          AppCubit.get(context)
-                                              .changeF(fmodel.id!);
-                                          AppCubit.get(context)
-                                              .changeFavourites(fmodel.id!);
-                                        },
-                                        icon: const Icon(
-                                          Icons.favorite_outline,
-                                          color: Colors.grey,
-                                          size: 27,
-                                        ))),
                               ),
                             ],
                           ),
@@ -252,7 +223,6 @@ class FavouriteScreen extends StatelessWidget {
                   height: 7,
                 ),
                 defaultButton(
-                    // ignore: avoid_returning_null_for_void
                     function: () {
                       productID.add(data.id!);
                       productNames.add(data.productName!);

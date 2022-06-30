@@ -59,6 +59,20 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  CategoryProductsModel? categoryProductsModelHome;
+
+  void getCategoryProductsHome() {
+    emit(AppLoadingGetCategoryProductsState());
+    DioHelper.getData(
+            url: 'https://care.ssd-co.com/api/client/category/product/12')
+        .then((value) {
+      categoryProductsModelHome = CategoryProductsModel.fromJson(value.data);
+      emit(AppSuccesGetCategoryProductsState());
+    }).catchError((e) {
+      emit(AppErrorGetCategoryProductsState());
+    });
+  }
+
   bool isFavourite = false;
   void changeF(int id) {
     isFavourite = !isFavourite;

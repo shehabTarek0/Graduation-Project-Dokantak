@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-int? id, idPro;
+int? id, idPro, idCat;
 File? imageProduct;
 String? getPro, getProduct0, getProduct1, getProduct2, getProduct3;
 double? pricePro, priceProduct0, priceProduct1, priceProduct2, priceProduct3;
@@ -11,6 +11,7 @@ String? token, tokenMer;
 final productNameController = TextEditingController();
 final productPriceController = TextEditingController();
 final productDesController = TextEditingController();
+final catController = TextEditingController();
 String? idc;
 int? currentIndex;
 final productID = <int>[];

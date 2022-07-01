@@ -8,6 +8,7 @@ import 'package:g_project/models/merchant/delete_product_model.dart';
 import 'package:g_project/models/merchant/edit_product_model.dart';
 import 'package:g_project/models/merchant/get_category_model.dart';
 import 'package:g_project/models/merchant/orders_model.dart';
+import 'package:g_project/modules/marchant/category/all_category.dart';
 import 'package:g_project/modules/marchant/home/mar_home.dart';
 import 'package:g_project/modules/marchant/more/more_mar.dart';
 import 'package:g_project/modules/marchant/orders/orders.dart';
@@ -23,6 +24,7 @@ class MarCubit extends Cubit<MarStates> {
   int currentIndex = 0;
   List<Widget> bottomScreen = [
     const MarHome(),
+    const AllCategories(),
     const OrdersScreen(),
     const MarMore()
   ];
@@ -35,7 +37,6 @@ class MarCubit extends Cubit<MarStates> {
   AllProductsModel? allProducts;
 
   void getAllProducts() async {
-    // emit(MarLoadingAllProductsState());
     await DioHelper.getData(
             url: 'https://care.ssd-co.com/api/admin/product', token: tokenMer)
         .then((value) {
@@ -49,7 +50,6 @@ class MarCubit extends Cubit<MarStates> {
   CategoryModel? category;
 
   void getMerCategory() {
-    emit(MarLoadingAllCategoryState());
     DioHelper.getData(
             url: 'https://care.ssd-co.com/api/admin/category', token: tokenMer)
         .then((value) {
@@ -57,6 +57,28 @@ class MarCubit extends Cubit<MarStates> {
       emit(MarSuccesAllCategoryState());
     }).catchError((e) {
       emit(MarErrorAllCategoryState());
+    });
+  }
+
+  void addCategory(String name) {
+    DioHelper.postData(
+        url: 'https://care.ssd-co.com/api/admin/category',
+        token: tokenMer,
+        data: {'name': name}).then((value) {
+      emit(MarSuccesAddCategoryState());
+    }).catchError((e) {
+      emit(MarErrorAddCategoryState());
+    });
+  }
+
+  void editCategory({required int id, required String name}) {
+    DioHelper.putData(
+        url: 'https://care.ssd-co.com/api/admin/category/$id',
+        token: tokenMer,
+        data: {'name': name}).then((value) {
+      emit(MarSuccesEditCategoryState());
+    }).catchError((e) {
+      emit(MarErrorEditCategoryState());
     });
   }
 
@@ -84,6 +106,17 @@ class MarCubit extends Cubit<MarStates> {
       emit(MarSuccesDeleteProductState());
     }).catchError((e) {
       emit(MarErrorDeleteProductState());
+    });
+  }
+
+  Future deleteCategory(int id) async {
+    await DioHelper.deleteData(
+            url: 'https://care.ssd-co.com/api/admin/category/$id',
+            token: tokenMer)
+        .then((value) {
+      emit(MarSuccesDeleteCategoryState());
+    }).catchError((e) {
+      emit(MarErrorDeleteCategoryState());
     });
   }
 

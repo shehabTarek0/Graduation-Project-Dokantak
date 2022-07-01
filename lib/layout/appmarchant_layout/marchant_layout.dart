@@ -25,6 +25,8 @@ class MarLayout extends StatelessWidget {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.home_sharp, size: 29), label: 'Home'),
                 BottomNavigationBarItem(
+                    icon: Icon(Icons.store, size: 30), label: 'Category'),
+                BottomNavigationBarItem(
                     icon: Icon(Icons.shopping_bag_sharp, size: 29),
                     label: 'Orders'),
                 BottomNavigationBarItem(

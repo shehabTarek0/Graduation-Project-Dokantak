@@ -105,11 +105,11 @@ class EditProduct extends StatelessWidget {
                                   productP: productPriceController.text,
                                   catId: idc!);
                               MarCubit.get(context).getAllProducts();
+                              flutterToast(
+                                  text: 'Product modified successfully',
+                                  state: ToastStates.S);
+                              navigateAndFinish(context, const MarLayout());
                             }
-                            flutterToast(
-                                text: 'Product modified successfully',
-                                state: ToastStates.S);
-                            navigateAndFinish(context, const MarLayout());
                           },
                           text: 'Edit Product',
                           isUpperCase: false,

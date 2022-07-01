@@ -20,6 +20,10 @@ class MarSuccesAddPhotoProductsState extends MarStates {}
 
 class MarErrorAddPhotoProductsState extends MarStates {}
 
+class MarSuccesAddCategoryState extends MarStates {}
+
+class MarErrorAddCategoryState extends MarStates {}
+
 class MarLoadingAllCategoryState extends MarStates {}
 
 class MarSuccesAllCategoryState extends MarStates {}
@@ -30,6 +34,14 @@ class MarSuccesDeleteProductState extends MarStates {}
 
 class MarErrorDeleteProductState extends MarStates {}
 
+class MarSuccesDeleteCategoryState extends MarStates {}
+
+class MarErrorDeleteCategoryState extends MarStates {}
+
 class MarSuccesEditProductState extends MarStates {}
 
 class MarErrorEditProductState extends MarStates {}
+
+class MarSuccesEditCategoryState extends MarStates {}
+
+class MarErrorEditCategoryState extends MarStates {}

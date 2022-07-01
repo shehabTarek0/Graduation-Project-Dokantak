@@ -44,11 +44,10 @@ class MarHome extends StatelessWidget {
             return Scaffold(
                 appBar: AppBar(
                   elevation: 2,
+                  centerTitle: true,
                   title: const Text(
                     'My Products',
                     style: TextStyle(
-                      fontSize: 28,
-                      fontStyle: FontStyle.italic,
                       fontWeight: FontWeight.w500,
                       letterSpacing: 2.5,
                     ),
@@ -161,7 +160,6 @@ class MarHome extends StatelessWidget {
               Row(
                 children: [
                   defaultButton(
-                      // ignore: avoid_returning_null_for_void
                       function: () {
                         productNameController.text = data.productName!;
                         productPriceController.text = data.price!;
@@ -178,7 +176,6 @@ class MarHome extends StatelessWidget {
                       radius: 7),
                   const Spacer(),
                   defaultButton(
-                      // ignore: avoid_returning_null_for_void
                       function: () {
                         showDialog(
                             context: context,

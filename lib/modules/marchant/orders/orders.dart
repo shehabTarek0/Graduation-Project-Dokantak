@@ -12,22 +12,38 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<MarCubit, MarStates>(
         builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              elevation: 2,
-              centerTitle: true,
-              title: const Text(
-                'Orders',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 2.5,
+          if (MarCubit.get(context).orderModel != null) {
+            return Scaffold(
+              appBar: AppBar(
+                elevation: 2,
+                centerTitle: true,
+                title: const Text(
+                  'Orders',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 2.5,
+                  ),
                 ),
               ),
-            ),
-            body: SingleChildScrollView(
-                child: buildOrders(MarCubit.get(context).orderModel),
-                physics: const BouncingScrollPhysics()),
-          );
+              body: SingleChildScrollView(
+                  child: buildOrders(MarCubit.get(context).orderModel),
+                  physics: const BouncingScrollPhysics()),
+            );
+          } else {
+            return Scaffold(
+                appBar: AppBar(
+                  elevation: 2,
+                  centerTitle: true,
+                  title: const Text(
+                    'Orders',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 2.5,
+                    ),
+                  ),
+                ),
+                body: const Center(child: CircularProgressIndicator()));
+          }
         },
         listener: (context, state) {});
   }

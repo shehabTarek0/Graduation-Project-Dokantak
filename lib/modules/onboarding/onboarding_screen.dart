@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:g_project/modules/start/start.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/network/local/cache_helper.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingModel {

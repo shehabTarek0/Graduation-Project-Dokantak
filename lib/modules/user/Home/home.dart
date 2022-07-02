@@ -17,6 +17,8 @@ import 'package:g_project/shared/component/constants.dart';
 import 'package:g_project/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../../shared/network/local/cache_helper.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
@@ -67,15 +69,12 @@ class HomeScreen extends StatelessWidget {
                           size: 22,
                         ))
                   ],
-                  title: const Text(
-                    'DOKANTAK',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 2.5,
-                    ),
-                  ),
+                  title: const Text('DOKANTAK',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 2.5,
+                      )),
                 ),
                 body: const Center(child: CircularProgressIndicator()));
           }
@@ -173,13 +172,15 @@ class HomeScreen extends StatelessWidget {
                   },
                   itemBuilder: (BuildContext context, int index) {
                     List<String> images = [
-                      'assets/images/Basket.png',
-                      'assets/images/AlluringRug.png',
-                      'assets/images/12.png',
-                      'assets/images/Vaso-gen.png',
-                      'assets/images/accessories-icon-png-12.jpg',
-                      'assets/images/accessories-icon-png-12.jpg',
-                      'assets/images/accessories-icon-png-12.jpg',
+                      'assets/images/gf.jpg',
+                      'assets/images/wqw.jpg',
+                      'assets/images/re.jpg',
+                      'assets/images/down.jpg',
+                      'assets/images/38252837.jpg',
+                      'assets/images/images.png',
+                      'assets/images/ba.webp',
+                      'assets/images/38252837.jpg',
+                      'assets/images/38252837.jpg',
                     ];
                     return categoriesBulider(context,
                         categoryClassModel.data![index], images[index]);
@@ -236,7 +237,19 @@ class HomeScreen extends StatelessWidget {
       );
 
   gridProductsBuilder(context, Dataa param1) => GestureDetector(
-        onTap: () => navigateTo(context, ProductDetails(Dataa)),
+        onTap: () {
+          String encodeDataa = Dataa.encode([
+            Dataa(
+                id: param1.id,
+                photo: param1.photo,
+                price: param1.price,
+                productName: param1.productName,
+                description: param1.description),
+          ]);
+          CacheHelper.saveData(
+              key: 'prodectsDetailsInSearch', value: encodeDataa);
+          navigateTo(context, ProductDetails(Dataa));
+        },
         child: Container(
           margin: const EdgeInsets.only(top: 10, bottom: 7),
           decoration: BoxDecoration(

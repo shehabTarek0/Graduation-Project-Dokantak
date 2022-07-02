@@ -136,16 +136,16 @@ class AppCubit extends Cubit<AppStates> {
 
   CheckOutModel? checkOut;
 
-  void postCheckOut() {
+  void postCheckOut(String name, String phone, String add) {
     if (productID.length == 1) {
       DioHelper.postData(
           url: 'https://care.ssd-co.com/api/cart/add?',
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',
@@ -162,9 +162,9 @@ class AppCubit extends Cubit<AppStates> {
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',
@@ -182,9 +182,9 @@ class AppCubit extends Cubit<AppStates> {
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',
@@ -203,9 +203,9 @@ class AppCubit extends Cubit<AppStates> {
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',
@@ -225,9 +225,9 @@ class AppCubit extends Cubit<AppStates> {
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',
@@ -248,9 +248,9 @@ class AppCubit extends Cubit<AppStates> {
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',
@@ -272,9 +272,9 @@ class AppCubit extends Cubit<AppStates> {
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',
@@ -297,9 +297,9 @@ class AppCubit extends Cubit<AppStates> {
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',
@@ -323,9 +323,9 @@ class AppCubit extends Cubit<AppStates> {
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',
@@ -350,9 +350,9 @@ class AppCubit extends Cubit<AppStates> {
           token: token,
           query: {
             'client_id': proModel!.data![0].id,
-            'client_name': proModel!.data![0].name,
-            'client_phone': proModel!.data![0].mobile,
-            'new_address': proModel!.data![0].address,
+            'client_name': name,
+            'client_phone': phone,
+            'new_address': add,
             'payment_method': 'cash',
             'status': '0',
             'check': '1',

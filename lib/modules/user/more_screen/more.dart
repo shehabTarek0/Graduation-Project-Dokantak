@@ -20,71 +20,87 @@ class MoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
         builder: (context, state) {
-          return Scaffold(
-              appBar: AppBar(
-                elevation: 2,
-                centerTitle: true,
-                title: const Text(
-                  'Settings',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 2.5,
+          if (AppCubit.get(context).proModel != null) {
+            return Scaffold(
+                appBar: AppBar(
+                  elevation: 2,
+                  centerTitle: true,
+                  title: const Text(
+                    'Settings and More',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 2.5,
+                    ),
                   ),
                 ),
-              ),
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Column(
-                    children: [
-                      profilePic(
-                          context, AppCubit.get(context).proModel!.data![0]),
-                      const SizedBox(height: 20),
-                      ProfileMenu(
-                        text: "My Account",
-                        icon: "assets/icons/User.svg",
-                        c1: const Color.fromARGB(221, 26, 22, 22),
-                        c2: const Color.fromARGB(209, 46, 34, 171),
-                        press: () =>
-                            {navigateTo(context, const ProfileScreen())},
-                      ),
-                      ProfileMenu(
-                        text: "Favourite",
-                        icon: "assets/icons/Heart Icon_2.svg",
-                        c1: const Color.fromARGB(221, 26, 22, 22),
-                        c2: const Color.fromARGB(224, 243, 27, 27),
-                        press: () {
-                          AppCubit.get(context).getFavourites();
-                          navigateTo(context, const FavouriteScreen());
-                        },
-                      ),
-                      ProfileMenu(
-                        text: "Change Password",
-                        icon: "assets/icons/Lock.svg",
-                        c1: const Color.fromARGB(221, 26, 22, 22),
-                        c2: const Color.fromARGB(223, 45, 243, 27),
-                        press: () => {navigateTo(context, ChangePass())},
-                      ),
-                      ProfileMenu(
-                        text: "Log Out",
-                        icon: "assets/icons/Log out.svg",
-                        c1: const Color.fromARGB(221, 26, 22, 22),
-                        c2: const Color.fromARGB(223, 136, 174, 176),
-                        press: () => {
-                          CacheHelper.removeData(key: 'token').then((value) {
-                            if (value) {
-                              AppCubit.get(context).currentIndex = 0;
-                              emailController.text = '';
-                              passController.text = '';
-                              navigateAndFinish(context, const StartScreen());
-                            }
-                          })
-                        },
-                      ),
-                    ],
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Column(
+                      children: [
+                        profilePic(
+                            context, AppCubit.get(context).proModel!.data![0]),
+                        const SizedBox(height: 20),
+                        ProfileMenu(
+                          text: "My Account",
+                          icon: "assets/icons/User.svg",
+                          c1: const Color.fromARGB(221, 26, 22, 22),
+                          c2: const Color.fromARGB(209, 46, 34, 171),
+                          press: () =>
+                              {navigateTo(context, const ProfileScreen())},
+                        ),
+                        ProfileMenu(
+                          text: "Favourite",
+                          icon: "assets/icons/Heart Icon_2.svg",
+                          c1: const Color.fromARGB(221, 26, 22, 22),
+                          c2: const Color.fromARGB(224, 243, 27, 27),
+                          press: () {
+                            AppCubit.get(context).getFavourites();
+                            navigateTo(context, const FavouriteScreen());
+                          },
+                        ),
+                        ProfileMenu(
+                          text: "Change Password",
+                          icon: "assets/icons/Lock.svg",
+                          c1: const Color.fromARGB(221, 26, 22, 22),
+                          c2: const Color.fromARGB(223, 45, 243, 27),
+                          press: () => {navigateTo(context, ChangePass())},
+                        ),
+                        ProfileMenu(
+                          text: "Log Out",
+                          icon: "assets/icons/Log out.svg",
+                          c1: const Color.fromARGB(221, 26, 22, 22),
+                          c2: const Color.fromARGB(223, 136, 174, 176),
+                          press: () => {
+                            CacheHelper.removeData(key: 'token').then((value) {
+                              if (value) {
+                                AppCubit.get(context).currentIndex = 0;
+                                emailController.text = '';
+                                passController.text = '';
+                                navigateAndFinish(context, const StartScreen());
+                              }
+                            })
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ));
+          } else {
+            return Scaffold(
+                appBar: AppBar(
+                  elevation: 2,
+                  centerTitle: true,
+                  title: const Text(
+                    'Settings and More',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 2.5,
+                    ),
                   ),
                 ),
-              ));
+                body: const Center(child: CircularProgressIndicator()));
+          }
         },
         listener: (context, state) {});
   }

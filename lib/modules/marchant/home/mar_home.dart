@@ -5,8 +5,11 @@ import 'package:g_project/layout/appmarchant_layout/cubit/states.dart';
 import 'package:g_project/models/merchant/all_products_model.dart';
 import 'package:g_project/modules/marchant/add_product/add_product.dart';
 import 'package:g_project/modules/marchant/edit_product/edit_product.dart';
+import 'package:g_project/modules/start/start.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
+
+import '../../../shared/network/local/cache_helper.dart';
 
 class MarHome extends StatelessWidget {
   const MarHome({Key? key}) : super(key: key);
@@ -27,6 +30,24 @@ class MarHome extends StatelessWidget {
                     letterSpacing: 2.5,
                   ),
                 ),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        CacheHelper.removeData(key: 'tokenMer').then((value) {
+                          if (value) {
+                            MarCubit.get(context).currentIndex = 0;
+                            navigateAndFinish(context, const StartScreen());
+                          }
+                        });
+                      },
+                      child: const Text(
+                        'log out',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 217, 123, 16)),
+                      ))
+                ],
               ),
               body: buildPro(MarCubit.get(context).allProducts!),
               floatingActionButton: FloatingActionButton(
@@ -125,7 +146,7 @@ class MarHome extends StatelessWidget {
                               color: Colors.grey[800]),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         Text(
                           '${data.price} LE',
@@ -137,16 +158,16 @@ class MarHome extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Text(
-                          'Description : ${data.description}',
-                          maxLines: 1,
+                          '${data.description}',
+                          maxLines: 5,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              height: 1.6,
+                              // height: 1.6,
                               color: Colors.grey[800]),
                         ),
                       ],

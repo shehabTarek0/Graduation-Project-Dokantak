@@ -10,7 +10,6 @@ import 'package:g_project/models/merchant/get_category_model.dart';
 import 'package:g_project/models/merchant/orders_model.dart';
 import 'package:g_project/modules/marchant/category/all_category.dart';
 import 'package:g_project/modules/marchant/home/mar_home.dart';
-import 'package:g_project/modules/marchant/more/more_mar.dart';
 import 'package:g_project/modules/marchant/orders/orders.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
@@ -26,7 +25,6 @@ class MarCubit extends Cubit<MarStates> {
     const MarHome(),
     const AllCategories(),
     const OrdersScreen(),
-    const MarMore()
   ];
 
   void changeBottom(int index) {
@@ -84,7 +82,7 @@ class MarCubit extends Cubit<MarStates> {
 
   OrdersModel? orderModel;
   void getOrders() {
-    emit(MarLoadingAllOrdersState());
+    // emit(MarLoadingAllOrdersState());
     DioHelper.getData(
             url: 'https://care.ssd-co.com/api/admin/orders', token: tokenMer)
         .then((value) {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/cubit.dart';
 import 'package:g_project/layout/appmarchant_layout/cubit/states.dart';
 
@@ -29,8 +27,6 @@ class MarLayout extends StatelessWidget {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.shopping_bag_sharp, size: 29),
                     label: 'Orders'),
-                BottomNavigationBarItem(
-                    icon: Icon(FontAwesome5.bars), label: 'More')
               ],
             ),
           );

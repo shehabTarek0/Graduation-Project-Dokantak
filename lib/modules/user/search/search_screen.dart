@@ -110,9 +110,11 @@ class _SearchScreenState extends State<SearchScreen> {
                 id: product.id,
                 photo: product.photo,
                 price: product.price,
-                productName: product.productName)
+                productName: product.productName,
+                description: product.description)
           ]);
-          CacheHelper.saveData(key: 'prodectsDetails', value: encodeDataa);
+          CacheHelper.saveData(
+              key: 'prodectsDetailsInSearch', value: encodeDataa);
           navigateTo(context, ProductDetails(Dataa));
         },
         child: Container(
@@ -171,16 +173,13 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     defaultButton(
                         function: () {
-                          String encodeData = Dataa.encode([
-                            Dataa(
-                                id: product.id,
-                                photo: product.photo,
-                                price: product.price,
-                                productName: product.productName)
-                          ]);
-                          CacheHelper.saveData(
-                              key: 'products', value: encodeData);
-                          getPro = CacheHelper.getData(key: 'products');
+                          productID.add(product.id!);
+                          productNames.add(product.productName!);
+                          productPrices.add(product.price!);
+                          productImages.add(product.photo!);
+                          flutterToast(
+                              text: 'Product added successfully',
+                              state: ToastStates.S);
                         },
                         text: 'ADD TO CART',
                         background: HexColor('#7A92A3'),

@@ -5,7 +5,8 @@ import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
-import 'package:hexcolor/hexcolor.dart';
+
+import '../check_out/check_out.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -129,13 +130,15 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           defaultButton(
                               function: () {
-                                AppCubit.get(context).postCheckOut();
+                                navigateTo(context, const CheckOut());
+                                // AppCubit.get(context).postCheckOut();
                               },
-                              text: 'Check Out',
+                              text: 'Continue Shopping',
                               style: const TextStyle(
                                   fontSize: 20, color: Colors.white),
-                              background: HexColor('#FFBC35'),
-                              width: 150,
+                              background:
+                                  const Color.fromARGB(255, 202, 149, 15),
+                              width: 210,
                               isUpperCase: false,
                               radius: 7)
                         ],

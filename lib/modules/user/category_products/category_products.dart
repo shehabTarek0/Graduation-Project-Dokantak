@@ -85,9 +85,11 @@ class CategoryProducts extends StatelessWidget {
                 id: data.id,
                 photo: data.photo,
                 price: data.price,
-                productName: data.productName)
+                productName: data.productName,
+                description: data.description)
           ]);
-          CacheHelper.saveData(key: 'prodectsDetails', value: encodeDataa);
+          CacheHelper.saveData(
+              key: 'prodectsDetailsInSearch', value: encodeDataa);
           navigateTo(context, ProductDetails(Dataa));
         },
         child: Container(

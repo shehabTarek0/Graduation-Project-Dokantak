@@ -6,10 +6,8 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:g_project/layout/app_layout/cubit/cubit.dart';
 import 'package:g_project/layout/app_layout/cubit/states.dart';
 import 'package:g_project/models/data.dart';
-import 'package:g_project/modules/user/product_details/product_details.dart';
 import 'package:g_project/shared/component/component.dart';
 import 'package:g_project/shared/component/constants.dart';
-import 'package:g_project/shared/network/local/cache_helper.dart';
 import 'package:g_project/shared/styles/colors.dart';
 
 import '../../../models/user/favourite_model.dart';
@@ -141,101 +139,97 @@ class FavouriteScreen extends StatelessWidget {
         ],
       );
 
-  Widget buildFavItem(context, Data fmodel, Dataa data) => GestureDetector(
-        onTap: () {
-          String encodeDataa = Dataa.encode([
-            Dataa(
-                id: data.id,
-                photo: data.photo,
-                price: data.price,
-                productName: data.productName)
-          ]);
-          CacheHelper.saveData(key: 'proo', value: encodeDataa);
-          navigateTo(context, ProductDetails(Dataa));
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.35),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image(
-                        image: NetworkImage('${fmodel.photo}'),
-                        fit: BoxFit.cover,
-                        width: 160,
-                        height: 160),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${fmodel.productName}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w800,
-                                height: 1.6,
-                                color: Colors.grey[800]),
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                '${fmodel.price}',
-                                maxLines: 1,
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  height: 1.3,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 7,
-                ),
-                defaultButton(
-                    function: () {
-                      productID.add(data.id!);
-                      productNames.add(data.productName!);
-                      productPrices.add(data.price!);
-                      productImages.add(data.photo!);
-                    },
-                    text: 'ADD TO CART',
-                    background: secondColor,
-                    width: double.infinity,
-                    height: 40,
-                    radius: 7)
-              ],
+  Widget buildFavItem(context, Data fmodel, Dataa data) => Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.35),
+              spreadRadius: 1,
+              blurRadius: 3,
+              offset: const Offset(0, 4),
             ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image(
+                      image: NetworkImage('${fmodel.photo}'),
+                      fit: BoxFit.cover,
+                      width: 150,
+                      height: 150),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${fmodel.productName}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w800,
+                              height: 1.6,
+                              color: Colors.grey[800]),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          '${fmodel.price}',
+                          maxLines: 1,
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            height: 1.3,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          '${fmodel.description}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            height: 1.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 7,
+              ),
+              defaultButton(
+                  function: () {
+                    productID.add(data.id!);
+                    productNames.add(data.productName!);
+                    productPrices.add(data.price!);
+                    productImages.add(data.photo!);
+                    flutterToast(
+                        text: 'Product added successfully',
+                        state: ToastStates.S);
+                  },
+                  text: 'ADD TO CART',
+                  background: secondColor,
+                  width: double.infinity,
+                  height: 40,
+                  radius: 7)
+            ],
           ),
         ),
       );

@@ -41,15 +41,15 @@ class CategoryScreen extends StatelessWidget {
                   },
                   itemBuilder: (BuildContext context, int index) {
                     List<String> images = [
-                      'assets/images/Basket.png',
-                      'assets/images/AlluringRug.png',
-                      'assets/images/12.png',
-                      'assets/images/Vaso-gen.png',
-                      'assets/images/accessories-icon-png-12.jpg',
-                      'assets/images/accessories-icon-png-12.jpg',
-                      'assets/images/accessories-icon-png-12.jpg',
-                      'assets/images/accessories-icon-png-12.jpg',
-                      'assets/images/accessories-icon-png-12.jpg',
+                      'assets/images/gf.jpg',
+                      'assets/images/wqw.jpg',
+                      'assets/images/re.jpg',
+                      'assets/images/down.jpg',
+                      'assets/images/38252837.jpg',
+                      'assets/images/images.png',
+                      'assets/images/ba.webp',
+                      'assets/images/38252837.jpg',
+                      'assets/images/38252837.jpg',
                     ];
                     return buildCatItem(
                         context,

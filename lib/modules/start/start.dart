@@ -32,16 +32,16 @@ class StartScreen extends StatelessWidget {
                     width: 15,
                   ),
                   const Text(
-                    'DOKANTEK',
+                    'DOKANTAK',
                     style: TextStyle(
-                        fontSize: 55,
-                        letterSpacing: 0.5,
-                        fontStyle: FontStyle.italic),
+                      fontSize: 55,
+                      letterSpacing: 0.5,
+                    ),
                   )
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 24,
               ),
               Text(
                 'Login To Your Account',

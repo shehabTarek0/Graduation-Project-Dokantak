@@ -115,7 +115,7 @@ class AddProduct extends StatelessWidget {
                           ),
                           SizedBox(
                             height: 50,
-                            width: 180,
+                            width: 150,
                             child: TextField(
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),

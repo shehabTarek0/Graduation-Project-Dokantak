@@ -141,17 +141,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(
                         height: 35,
                       ),
-                      defaultButton(
-                          function: () {
-                            getImage();
-                          },
-                          text: 'Choose photo',
-                          height: 60,
-                          width: 170,
-                          isUpperCase: false,
-                          background: Colors.grey[400],
-                          style: const TextStyle(
-                              color: Colors.black87, fontSize: 20)),
+                      Row(
+                        children: [
+                          defaultButton(
+                              function: () {
+                                getImage();
+                              },
+                              text: 'Choose photo',
+                              height: 50,
+                              width: 170,
+                              isUpperCase: false,
+                              background: Colors.grey[400],
+                              style: const TextStyle(
+                                  color: Colors.black87, fontSize: 20)),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          SizedBox(
+                            height: 50,
+                            width: 160,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: _image?.path.split('/').last,
+                              ),
+                              enabled: false,
+                            ),
+                          )
+                        ],
+                      ),
                       const SizedBox(
                         height: 35,
                       ),

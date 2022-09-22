@@ -14,25 +14,24 @@ class DioHelper {
     );
   }
 
-  static Future<Response> getData({
-    required String url,
-    Map<String, dynamic>? query,
-    String lang = 'en',
-    String? token,
-  }) async {
+  static Future<Response> getData({required String url,Map<String, dynamic>? query,String lang = 'en',String? token,}) async {
     dio.options.headers = {
       'lang': lang,
       'Authorization': 'Bearer $token',
       'Content-Type': 'application/json',
     };
-
     return await dio.get(
       url,
       queryParameters: query,
     );
   }
 
-  Future<Response> uploadImage(
+  static Future<Response> uploadImage({required String url,Map<String, dynamic>? data,required File file} ) async {
+    FormData formData = FormData.fromMap(data!);
+    return dio.post(url, data: formData);
+  }
+
+/*   Future<Response> uploadImage(
       {required String url,
       Map<String, dynamic>? data,
       required File
@@ -48,7 +47,7 @@ class DioHelper {
       'address': "cairofdfggff" */
 
     return dio.post(url, data: formData);
-  }
+  } */
 
   static Future<Response> postData(
       {required String url,

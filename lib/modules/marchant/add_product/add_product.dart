@@ -131,7 +131,7 @@ class AddProduct extends StatelessWidget {
                           function: () async {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              DioHelper().uploadImage(
+                              DioHelper.uploadImage(
                                   url:
                                       'https://care.ssd-co.com/api/admin/product',
                                   file: imageProduct!,

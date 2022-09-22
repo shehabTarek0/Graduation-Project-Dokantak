@@ -177,7 +177,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           function: () async {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              DioHelper()
+                              DioHelper
                                   .uploadImage(
                                       url: REGISTER,
                                       data: {

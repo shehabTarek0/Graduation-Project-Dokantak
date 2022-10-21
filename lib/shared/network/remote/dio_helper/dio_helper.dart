@@ -14,7 +14,12 @@ class DioHelper {
     );
   }
 
-  static Future<Response> getData({required String url,Map<String, dynamic>? query,String lang = 'en',String? token,}) async {
+  static Future<Response> getData({
+    required String url,
+    Map<String, dynamic>? query,
+    String lang = 'en',
+    String? token,
+  }) async {
     dio.options.headers = {
       'lang': lang,
       'Authorization': 'Bearer $token',
@@ -26,7 +31,10 @@ class DioHelper {
     );
   }
 
-  static Future<Response> uploadImage({required String url,Map<String, dynamic>? data,required File file} ) async {
+  static Future<Response> uploadImage(
+      {required String url,
+      Map<String, dynamic>? data,
+      required File file}) async {
     FormData formData = FormData.fromMap(data!);
     return dio.post(url, data: formData);
   }

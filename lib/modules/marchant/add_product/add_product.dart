@@ -140,8 +140,9 @@ class AddProduct extends StatelessWidget {
                                     'description': productDesController.text,
                                     'photo': await MultipartFile.fromFile(
                                         imageProduct!.path,
-                                        filename:
-                                            imageProduct!.path.split('/').last),
+                                        filename: imageProduct!.path.substring(
+                                            imageProduct!.path
+                                                .lastIndexOf('/'))),
                                     'price': productPriceController.text,
                                     'category_id': idc
                                   }).then((value) {
@@ -149,6 +150,8 @@ class AddProduct extends StatelessWidget {
                                     text: 'Product Upload Successfully',
                                     state: ToastStates.S);
                                 MarCubit.get(context).getAllProducts();
+                                print(imageProduct!.path.substring(
+                                    imageProduct!.path.lastIndexOf('/')));
                                 productNameController.text = '';
                                 productDesController.text = '';
                                 imageProduct = null;

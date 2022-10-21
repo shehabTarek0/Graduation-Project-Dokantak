@@ -174,11 +174,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 35,
                       ),
                       defaultButton(
-                          function: () async {
+                          function: () {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              DioHelper
-                                  .uploadImage(
+                              DioHelper.uploadImage(
                                       url: REGISTER,
                                       data: {
                                         'name': nameController.text,
@@ -187,10 +186,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         'password_confirmation':
                                             passController.text,
                                         'mobile': phoneController.text,
-                                        'photo': await MultipartFile.fromFile(
+                                        'photo': MultipartFile.fromFile(
                                             _image!.path,
-                                            filename:
-                                                _image!.path.split('/').last),
+                                            filename: _image!.path.substring(
+                                                _image!.path.lastIndexOf('/') +
+                                                    1)),
                                         'address': addressController.text
                                       },
                                       file: _image!)
